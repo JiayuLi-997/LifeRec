@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/music_instruction" />
+
+    <ListView
+        android:id="@+id/music_list"
+        android:layout_width="match_parent"
+        android:layout_height="440dp"
+
+        android:layout_weight="1"
+        android:divider="@null"
+        android:groupIndicator="@null"
+        android:layoutDirection="ltr"></ListView>
+
+    <Button
+        android:id="@+id/music_back_button"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="15"
+        android:background="@drawable/btn_shape_green"
+        android:text="@string/back"
+        android:textSize="15dp" />
+</LinearLayout>

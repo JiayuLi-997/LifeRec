@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/create_user_dialog_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/holo_green_light"
+    android:minWidth="200dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp">
+
+    <TimePicker
+        android:id="@+id/tp_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner" />
+
+
+    <EditText
+        android:id="@+id/text_event"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="@string/act_now"
+        android:minHeight="45dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/text_mood"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="@string/mood_now"
+        android:minHeight="45dp"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_mood_set"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/set_mood" />
+
+    <Button
+        android:id="@+id/btn_save_pop"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/save" />
+
+</LinearLayout>

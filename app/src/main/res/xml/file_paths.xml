@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths >
+    <external-path
+        name="external_files"
+        path="." />
+
+    <external-path
+        name="image"
+        path="/com.java.lifelog_backend/image/"/>
+    <external-path
+        name="weather"
+        path="/com.java.lifelog_backend/weather/"/>
+    <external-path
+        name="gps"
+        path="/com.java.lifelog_backend/gps/"/>
+</paths>

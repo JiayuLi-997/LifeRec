@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:dialogTitle="输入被试编号"
+        android:key="number_preference"
+        android:title="被试编号" />
+    <EditTextPreference
+        android:dialogTitle="输入手环编号"
+        android:key="bluetooth_preference"
+        android:title="手环编号" />
+    <CheckBoxPreference
+        android:key="alarm_preference"
+        android:title="开启提醒"
+        android:defaultValue="true"/>
+
+    <PreferenceScreen
+        android:title="开始提醒时间" >
+        <EditTextPreference
+            android:dialogTitle="输入时：6/7/8/9"
+            android:summary="24小时制度，输入时钟数字"
+            android:key="start_time_preference_hour"
+            android:title="时" />
+        <EditTextPreference
+            android:dialogTitle="输入分：00/10/20/30/40/50"
+            android:summary="00/10/20/30/40/50"
+            android:key="start_time_preference_minute"
+            android:title="分" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:title="结束提醒时间" >
+        <EditTextPreference
+            android:dialogTitle="输入时：19/20/21/22/23"
+            android:summary="24小时制度，输入时钟数字"
+            android:key="end_time_preference_hour"
+            android:title="时" />
+        <EditTextPreference
+            android:dialogTitle="输入分：00/10/20/30/40/50"
+            android:summary="00/10/20/30/40/50"
+            android:key="end_time_preference_minute"
+            android:title="分" />
+    </PreferenceScreen>
+
+    <EditTextPreference
+        android:dialogTitle="输入分钟：120/180/240"
+        android:summary="24小时制度，输入时钟数字"
+        android:key="interval_preference"
+        android:title="提醒时间间隔（分）" />
+
+    <PreferenceScreen
+        android:title="标注提醒时间" >
+        <EditTextPreference
+            android:dialogTitle="输入时：20/21/22/23/24"
+            android:summary="24小时制度，输入时钟数字"
+            android:key="tagging_preference_hour"
+            android:title="时" />
+        <EditTextPreference
+            android:dialogTitle="输入分：00/10/20/30/40/50"
+            android:summary="00/10/20/30/40/50"
+            android:key="tagging_preference_minute"
+            android:title="分" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:title="早餐提醒时间" >
+        <EditTextPreference
+            android:dialogTitle="输入时：6/7/8/9"
+            android:summary="24小时制度，输入时钟数字"
+            android:key="breakfast_preference_hour"
+            android:title="时" />
+        <EditTextPreference
+            android:dialogTitle="输入分：00/10/20/30/40/50"
+            android:summary="00/10/20/30/40/50"
+            android:key="breakfast_preference_minute"
+            android:title="分" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:title="午餐提醒时间" >
+        <EditTextPreference
+            android:dialogTitle="输入时：11/12/13"
+            android:summary="24小时制度，输入时钟数字"
+            android:key="lunch_preference_hour"
+            android:title="时" />
+        <EditTextPreference
+            android:dialogTitle="输入分：00/10/20/30/40/50"
+            android:summary="00/10/20/30/40/50"
+            android:key="lunch_preference_minute"
+            android:title="分" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:title="晚餐提醒时间" >
+        <EditTextPreference
+            android:dialogTitle="输入时：17/18/19"
+            android:summary="24小时制度，输入时钟数字"
+            android:key="dinner_preference_hour"
+            android:title="时" />
+        <EditTextPreference
+            android:dialogTitle="输入分：00/10/20/30/40/50"
+            android:summary="00/10/20/30/40/50"
+            android:key="dinner_preference_minute"
+            android:title="分" />
+    </PreferenceScreen>
+
+</PreferenceScreen>
