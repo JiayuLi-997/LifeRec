@@ -150,7 +150,7 @@ public class MoodRequestActivity extends AppCompatActivity implements View.OnCli
 
                             emotion_event = ans.getText().toString();
 //                            Toast.makeText(getApplicationContext(), emotion_event, Toast.LENGTH_SHORT).show();
-                            if(configuration.locale.getCountry().equals("CN")) {
+                            if(configuration.locale.getLanguage().contains("zh")) {
                                 question_text.setText("请记录事件发生的时间");
                             }
                             else{
@@ -203,7 +203,7 @@ public class MoodRequestActivity extends AppCompatActivity implements View.OnCli
         Configuration configuration = getResources().getConfiguration();
 
         button.setVisibility(View.VISIBLE);
-        if(configuration.locale.getCountry().equals("CN")){
+        if(configuration.locale.getLanguage().contains("zh")){
             button.setText("下一步");
         }
         else{
@@ -224,7 +224,7 @@ public class MoodRequestActivity extends AppCompatActivity implements View.OnCli
 //                    Toast.makeText(getApplicationContext(), "请简要描述激发您强烈情绪的事件：", Toast.LENGTH_SHORT).show();
                     got_emotion = true;
                     String msg = "Please describe the events that aroused your emotions briefly:";
-                    if(configuration.locale.getCountry().equals("CN")){
+                    if(configuration.locale.getLanguage().contains("zh")){
                         msg = "请简要描述引发你情绪变化的事件";
                     }
                     question_text.setText(msg);
@@ -237,17 +237,17 @@ public class MoodRequestActivity extends AppCompatActivity implements View.OnCli
                     String text;
                     if (interval != null) {
                         text = "Please briefly describe your activities in last " + interval + " minutes:\n(e.g. studying/working, meeting, entertaining, sports, rest, eating, sleeping, others)";
-                        if(configuration.locale.getCountry().equals("CN")){
+                        if(configuration.locale.getLanguage().contains("zh")){
                             text = "请简要描述你过去"+interval+"分钟的活动:\n(如, 学习/工作, 开会, 娱乐, 运动, 休息, 进餐, 睡觉, 其他)";
                         }
                     } else {
                         text = "Please briefly describe your activities:\n(e.g. studying/working, meeting, entertaining, sports, rest, eating, sleeping, others))";
-                        if(configuration.locale.getCountry().equals("CN")){
+                        if(configuration.locale.getLanguage().contains("zh")){
                             text = "请简要描述你当前活动:\n(如, 学习/工作, 开会, 娱乐, 运动, 休息, 进餐, 睡觉, 其他)";
                         }
                     }
                     question_text.setText(text);
-                    if(configuration.locale.getCountry().equals("CN")){
+                    if(configuration.locale.getLanguage().contains("zh")){
                         button.setText("下一步");
                     }
                     else {
@@ -317,7 +317,7 @@ public class MoodRequestActivity extends AppCompatActivity implements View.OnCli
         String yes = "Yes";
         String no = "No";
         Configuration configuration = getResources().getConfiguration();
-        if(configuration.locale.getCountry().equals("CN")){
+        if(configuration.locale.getLanguage().contains("zh")){
             msg = "你现在想听音乐吗？";
             yes = "是";
             no = "否";

@@ -81,7 +81,11 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
         mood = new double[]{0, 0};
         new_mood = new double[]{0, 0};
         Configuration configuration = getResources().getConfiguration();
-        if(!(configuration.locale.getCountry().equals("CN"))){
+        Log.i(TAG,configuration.getLocales().toString());
+        Log.i(TAG,configuration.getLocales().toLanguageTags());
+        Log.i(TAG,configuration.locale.getLanguage());
+        Log.i(TAG,configuration.locale.getCountry());
+        if(!(configuration.locale.getLanguage().contains("zh"))){
             Log.i(TAG,"English version!");
             ImageView imageview=(ImageView)super.findViewById(R.id.mood_pic);
             imageview.setImageResource(R.drawable.thayer_mood_eng);
@@ -101,7 +105,7 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
         pmood = getIntent().getStringExtra("pmood");
         if (intentTitle != null)
             if (intentTitle.equals("music")) {
-                if(configuration.locale.getCountry().equals("CN")){
+                if(configuration.locale.getLanguage().contains("zh")){
                     tx.setText("你现在的心情怎么样？");
                 }
                 else{
@@ -111,7 +115,7 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
                 fromMusicDialog = true;
             }
             else if (intentTitle.equals("How were you feeling then??")) {
-                if(configuration.locale.getCountry().equals("CN")){
+                if(configuration.locale.getLanguage().contains("zh")){
                     tx.setText("你当时的心情怎么样？");
                 }
                 else{
@@ -122,7 +126,7 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
             }
             else if (intentTitle.equals("How were you feeling then?")) {
 //                System.out.println("but hear");
-                if(configuration.locale.getCountry().equals("CN")){
+                if(configuration.locale.getLanguage().contains("zh")){
                     tx.setText("你当时的心情如何？");
                 }
                 else{
@@ -135,7 +139,7 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
             else {
                 String title = getIntent().getStringExtra("title");
                 if (title.equals("How are you feeling now?")){
-                    if(configuration.locale.getCountry().equals("CN")){
+                    if(configuration.locale.getLanguage().contains("zh")){
                         tx.setText("你现在的心情怎么样？");
                     }
                     else{
@@ -143,7 +147,7 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
                 else if(title.equals("How were you feeling then?")){
-                    if(configuration.locale.getCountry().equals("CN")){
+                    if(configuration.locale.getLanguage().contains("zh")){
                         tx.setText("你当时的心情怎么样？");
                     }
                     else{
@@ -352,7 +356,7 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
         String msg = "Would you like to listen to some music";
         String yes = "Yes";
         String no = "No";
-        if(configuration.locale.getCountry().equals("CN")){
+        if(configuration.locale.getLanguage().contains("zh")){
             msg = "你现在想听音乐吗？";
             yes = "是";
             no = "否";
@@ -373,7 +377,7 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         startActivityForResult(intent, 10);
                         TextView tx = findViewById(R.id.mood_text);
-                        if(configuration.locale.getCountry().equals("CN")){
+                        if(configuration.locale.getLanguage().contains("zh")){
                             tx.setText("你现在的心情如何？");
                         }
                         else{

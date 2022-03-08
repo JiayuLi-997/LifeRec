@@ -309,7 +309,7 @@ public class MusicActivity extends AppCompatActivity {
         String title = "Please rate this song:";
         String[] tempKey = {"1 (strongly dislike)", "2 (dislike)", "3 (neutral)", "4 (like)", "5 (strongly like)"};
         Configuration configuration = getResources().getConfiguration();
-        if(configuration.locale.getCountry().equals("CN")){
+        if(configuration.locale.getLanguage().contains("zh")){
             title = "请给这首歌打分：";
             tempKey = new String[]{"1 (非常不喜欢)", "2 (不喜欢)","3 (一般)","4 (喜欢)","5 (非常喜欢)"};
         }

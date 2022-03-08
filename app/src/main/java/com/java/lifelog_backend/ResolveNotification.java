@@ -34,7 +34,7 @@ public class ResolveNotification extends AppCompatActivity {
         final Context context = getApplicationContext();
         Configuration configuration = getResources().getConfiguration();
         String language="EN";
-        if(configuration.locale.getCountry().equals("CN")) {
+        if(configuration.locale.getLanguage().contains("zh")) {
             language="CH";
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

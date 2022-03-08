@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Configuration configuration = getResources().getConfiguration();
                 DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
                 Resources resources = getResources();
-                if(configuration.locale.getCountry().equals("CN")) {
+                if(configuration.locale.getLanguage().contains("zh")) {
                     configuration.setLocale(Locale.US);
                     resources.updateConfiguration(configuration, displayMetrics);
                     startActivity(new Intent(MainActivity.this,MainActivity.class));

@@ -81,7 +81,7 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
         Configuration configuration = getResources().getConfiguration();
 
         button.setVisibility(View.VISIBLE);
-        if(configuration.locale.getCountry().equals("CN")){
+        if(configuration.locale.getLanguage().contains("zh")){
             button.setText("下一步");
         }
         else{
@@ -95,7 +95,7 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
         question_text.setVisibility(View.VISIBLE);
         ans.setVisibility(View.VISIBLE);
         String msg = "Please describe the events that aroused your emotions briefly: ";
-        if(configuration.locale.getCountry().equals("CN")){
+        if(configuration.locale.getLanguage().contains("zh")){
             msg = "请简要描述引起你情绪变化的事件：";
         }
         question_text.setText(msg);
@@ -133,7 +133,7 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
                     case 1:
                         emotion_event = ans.getText().toString();
 //                            Toast.makeText(getApplicationContext(), emotion_event, Toast.LENGTH_SHORT).show();
-                        if(configuration.locale.getCountry().equals("CN")) {
+                        if(configuration.locale.getLanguage().contains("zh")) {
                             question_text.setText("请记录事件发生的时间");
                         }
                         else{
