@@ -2,6 +2,7 @@ package com.java.lifelog_backend;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,6 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -171,7 +173,7 @@ public class MusicActivity extends AppCompatActivity {
                             public void onFailure(Call call, IOException e) {
                                 Log.i("app", "提交失败");
                                 Looper.prepare();
-                                Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), "Failed to submit request", Toast.LENGTH_SHORT).show();
                                 Looper.loop();
                                 finish();
                             }
@@ -180,7 +182,7 @@ public class MusicActivity extends AppCompatActivity {
                             public void onResponse(Call call, Response response) throws IOException {
                                 Log.i("app", "提交成功");
                                 Looper.prepare();
-                                Toast.makeText(getBaseContext(), "Succeed", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getBaseContext(), "Succeed", Toast.LENGTH_SHORT).show();
                                 Looper.loop();
                                 finish();
                             }
@@ -304,8 +306,14 @@ public class MusicActivity extends AppCompatActivity {
 
     private void showRatingDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MusicActivity.this);
-        builder.setTitle("Please score this song:");
-        final String[] tempKey = {"1 (strongly dislike)", "2 (dislike)", "3 (average)", "4 (like)", "5 (strongly like)"};
+        String title = "Please rate this song:";
+        String[] tempKey = {"1 (strongly dislike)", "2 (dislike)", "3 (neutral)", "4 (like)", "5 (strongly like)"};
+        Configuration configuration = getResources().getConfiguration();
+        if(configuration.locale.getCountry().equals("CN")){
+            title = "请给这首歌打分：";
+            tempKey = new String[]{"1 (非常不喜欢)", "2 (不喜欢)","3 (一般)","4 (喜欢)","5 (非常喜欢)"};
+        }
+        builder.setTitle(title);
         builder.setItems(tempKey, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

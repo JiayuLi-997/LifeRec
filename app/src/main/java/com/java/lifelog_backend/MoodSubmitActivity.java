@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -26,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Notice that this activity is similar to MoodRequest.
@@ -76,9 +78,15 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
 
         // set all components
         state = 1;
+        Configuration configuration = getResources().getConfiguration();
 
         button.setVisibility(View.VISIBLE);
-        button.setText("Next");
+        if(configuration.locale.getCountry().equals("CN")){
+            button.setText("下一步");
+        }
+        else{
+            button.setText("Continue");
+        }
 
         // clear all data collected
         emotion_event = "";
@@ -86,7 +94,11 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
         ans.setText("");
         question_text.setVisibility(View.VISIBLE);
         ans.setVisibility(View.VISIBLE);
-        question_text.setText("Please briefly describe the events that triggered your strong emotions: ");
+        String msg = "Please describe the events that aroused your emotions briefly: ";
+        if(configuration.locale.getCountry().equals("CN")){
+            msg = "请简要描述引起你情绪变化的事件：";
+        }
+        question_text.setText(msg);
     }
 
     @Override
@@ -101,9 +113,7 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
 //                    String notice = "You've submitted successfully with emotion (" + emotion[0] + "," + emotion[1] + ").";
 //                    Toast.makeText(getApplicationContext(), notice, Toast.LENGTH_SHORT).show();
                     // writeFile
-                    if (writeFile()) {
-                        Toast.makeText(getApplicationContext(), "Recorded successfully!", Toast.LENGTH_LONG).show();
-                    }
+                    writeFile();
                     // back to Main
                     // finish();
                     Intent intent = new Intent();
@@ -116,13 +126,19 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View view) {
+        Configuration configuration = getResources().getConfiguration();
         switch (view.getId()) {
             case R.id.mood_submit_confirm:
                 switch (state) {
                     case 1:
                         emotion_event = ans.getText().toString();
 //                            Toast.makeText(getApplicationContext(), emotion_event, Toast.LENGTH_SHORT).show();
-                        question_text.setText("Please record the moment: ");
+                        if(configuration.locale.getCountry().equals("CN")) {
+                            question_text.setText("请记录事件发生的时间");
+                        }
+                        else{
+                            question_text.setText("Please record the time that event happened: ");
+                        }
                         ans.setVisibility(View.INVISIBLE);
                         timePicker.setVisibility(View.VISIBLE);
                         timePicker.setIs24HourView(true);
@@ -139,7 +155,7 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
                         // jump to Mood to collect emotion
                         Intent intent = new Intent();
                         intent.setClass(MoodSubmitActivity.this, MoodActivity.class);
-                        intent.putExtra("title", "How are you feeling then??");
+                        intent.putExtra("title", "How were you feeling then??");
                         this.startActivityForResult(intent, 200);
                         break;
                 }
@@ -173,7 +189,7 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("Record", e.toString());
-            Toast.makeText(getApplicationContext(), "Recorded error!", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "Recorded error!", Toast.LENGTH_LONG).show();
         } finally {
             try {
                 if (out != null) {

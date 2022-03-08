@@ -54,6 +54,7 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
     boolean fileReadMood;
     private AlertDialog.Builder builder;
     String pmood = "";
+    String TAG="moodActivity";
 
     //以下五个变量全部是音乐相关
     String responseText;
@@ -80,13 +81,17 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
         mood = new double[]{0, 0};
         new_mood = new double[]{0, 0};
         Configuration configuration = getResources().getConfiguration();
-        if(configuration.locale != Locale.SIMPLIFIED_CHINESE){
+        if(!(configuration.locale.getCountry().equals("CN"))){
+            Log.i(TAG,"English version!");
             ImageView imageview=(ImageView)super.findViewById(R.id.mood_pic);
-            imageview.setBackgroundDrawable(getResources().getDrawable(R.drawable.thayer_mood_eng));
+            imageview.setImageResource(R.drawable.thayer_mood_eng);
+//            imageview.setBackgroundDrawable(getResources().getDrawable(R.drawable.thayer_mood_eng));
         }
         else{
+            Log.i(TAG,"Chinese version!");
             ImageView imageview=(ImageView)super.findViewById(R.id.mood_pic);
-            imageview.setBackgroundDrawable(getResources().getDrawable(R.drawable.thayer_mood));
+            imageview.setImageResource(R.drawable.thayer_mood);
+//            imageview.setBackgroundDrawable(getResources().getDrawable(R.drawable.thayer_mood));
         }
         findViewById(R.id.btn_mood_submit).setOnClickListener(this);
         findViewById(R.id.mood_pic).setOnTouchListener(this);
@@ -96,22 +101,55 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
         pmood = getIntent().getStringExtra("pmood");
         if (intentTitle != null)
             if (intentTitle.equals("music")) {
-                tx.setText("How are you feeling now?");
+                if(configuration.locale.getCountry().equals("CN")){
+                    tx.setText("你现在的心情怎么样？");
+                }
+                else{
+                    tx.setText("How are you feeling now?");
+                }
                 showMusicDialog = false;
                 fromMusicDialog = true;
-            } else if (intentTitle.equals("How are you feeling then??")) {
-                System.out.println("reach hear");
-                tx.setText("What's your feeling then?");
+            }
+            else if (intentTitle.equals("How were you feeling then??")) {
+                if(configuration.locale.getCountry().equals("CN")){
+                    tx.setText("你当时的心情怎么样？");
+                }
+                else{
+                    tx.setText("How were you feeling then?");
+                }
                 fileReadMood = false;
                 showMusicDialog = true;
-            } else if (intentTitle.equals("How are you feeling then?")) {
-                System.out.println("but hear");
-                tx.setText("What's your feeling then?");
+            }
+            else if (intentTitle.equals("How were you feeling then?")) {
+//                System.out.println("but hear");
+                if(configuration.locale.getCountry().equals("CN")){
+                    tx.setText("你当时的心情如何？");
+                }
+                else{
+                    tx.setText("What was your feeling then?");
+                }
                 //fileReadMood = false;
                 // showMusicDialog = true;
                 showMusicDialog = false;
-            } else {
-                tx.setText(getIntent().getStringExtra("title"));
+            }
+            else {
+                String title = getIntent().getStringExtra("title");
+                if (title.equals("How are you feeling now?")){
+                    if(configuration.locale.getCountry().equals("CN")){
+                        tx.setText("你现在的心情怎么样？");
+                    }
+                    else{
+                        tx.setText("How are you feeling now?");
+                    }
+                }
+                else if(title.equals("How were you feeling then?")){
+                    if(configuration.locale.getCountry().equals("CN")){
+                        tx.setText("你当时的心情怎么样？");
+                    }
+                    else{
+                        tx.setText("How were you feeling then?");
+                    }
+                }
                 showMusicDialog = false;
             }
     }
@@ -310,8 +348,17 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showMusicDialog() {
+        final Configuration configuration = getResources().getConfiguration();
+        String msg = "Would you like to listen to some music";
+        String yes = "Yes";
+        String no = "No";
+        if(configuration.locale.getCountry().equals("CN")){
+            msg = "你现在想听音乐吗？";
+            yes = "是";
+            no = "否";
+        }
         builder = new AlertDialog.Builder(this).setIcon(R.mipmap.ic_launcher).setTitle("Music")
-                .setMessage("Would you like to listen to some music").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setMessage(msg).setPositiveButton(yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Toast.makeText(MoodActivity.this, "听音乐", Toast.LENGTH_LONG).show();
@@ -326,9 +373,15 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         startActivityForResult(intent, 10);
                         TextView tx = findViewById(R.id.mood_text);
-                        tx.setText("How are you feeling now?");
+                        if(configuration.locale.getCountry().equals("CN")){
+                            tx.setText("你现在的心情如何？");
+                        }
+                        else{
+                            tx.setText("How are you feeling now?");
+                        }
+
                     }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Toast.makeText(MoodActivity.this, "不听音乐", Toast.LENGTH_LONG).show();

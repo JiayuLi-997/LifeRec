@@ -9,6 +9,11 @@
 .cxx
 **/debug/
 
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+gradlew
+gradlew.bat
+
 # Eclipse, ctags, Mac metadata, log files
 .classpath
 .project
