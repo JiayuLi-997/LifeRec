@@ -82,7 +82,7 @@ public class ContextActivity extends AppCompatActivity  implements View.OnClickL
                 }catch (Exception e) {
                     Log.e("Record", e.toString());
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Recorded error!", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "Recorded error!", Toast.LENGTH_LONG).show();
                 }finally {
                     try {
                         if (out != null) {
@@ -92,7 +92,7 @@ public class ContextActivity extends AppCompatActivity  implements View.OnClickL
                         e.printStackTrace();
                     }
                     Log.i("context_results",results);
-                    Toast.makeText(getApplicationContext(),"Context Successful",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),"Context Successful",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent();
                     intent.setClass(ContextActivity.this, MainActivity.class);
                     this.startActivity(intent);

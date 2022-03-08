@@ -30,7 +30,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private EditText user_editText, bluetooth_editText, interval_editText;
     private int[] tagging_time, breakfast_time, lunch_time, dinner_time;
     private TextView start_Textview, end_Textview, tagging_Textview, breakfast_Textview, lunch_Textview, dinner_Textview;
-
+    String TAG="SettingActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,9 +114,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 //返回Main界面
                 Intent intent = new Intent();
                 intent.setClass(SettingActivity.this, MainActivity.class);
-                intent.putExtra("interval", interval_editText.getText().toString());
-                setResult(RESULT_OK, intent);
-                finish();
+                this.startActivity(intent);
+//                Intent intent = new Intent();
+//                intent.setClass(SettingActivity.this, MainActivity.class);
+//                intent.putExtra("interval", interval_editText.getText().toString());
+//                setResult(RESULT_OK, intent);
+//                finish();
                 break;
             case R.id.set_tagging_time:
                 Intent intent3 = new Intent();
@@ -312,7 +315,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         i.putExtra("dinner", dinner_time_setting);
         i.putExtra("clocks", clocks);
         startService(i);
-
     }
 
 }

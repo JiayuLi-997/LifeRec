@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Uri imageUri;
     String intervalTime;
     String fileName;
+    String TAG="mainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//构造函数(?)
@@ -114,12 +115,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         checkPermission();
         toggleNotificationListenerService(this);
 
+
         initView();
         //获取锁屏后运行权限
         initWakeLock();
 
         // 打开notification设置
         startNotification();
+
     }
 
 
@@ -239,18 +242,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Configuration configuration = getResources().getConfiguration();
                 DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
                 Resources resources = getResources();
-                if(configuration.locale == Locale.SIMPLIFIED_CHINESE) {
-                    configuration.locale = Locale.US;
+                if(configuration.locale.getCountry().equals("CN")) {
+                    configuration.setLocale(Locale.US);
                     resources.updateConfiguration(configuration, displayMetrics);
                     startActivity(new Intent(MainActivity.this,MainActivity.class));
                     finish();
                 }
                 else {
-                configuration.locale = Locale.SIMPLIFIED_CHINESE;
-                resources.updateConfiguration(configuration, displayMetrics);
-                startActivity(new Intent(MainActivity.this, MainActivity.class));
-                finish();
-                break;
+                    configuration.setLocale(Locale.SIMPLIFIED_CHINESE);
+                    resources.updateConfiguration(configuration, displayMetrics);
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                    finish();
                 }
         }
     }
@@ -331,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             startActivityForResult(intent, 1);
         } catch (IOException e) {//异常报错
-            Toast toast= Toast.makeText(getApplicationContext(),"Failed to save the picture, please take the picture again!",Toast.LENGTH_LONG);
+            Toast toast= Toast.makeText(getApplicationContext(),"Failed to save the photo, please take the photo again!",Toast.LENGTH_LONG);
             toast.show();
             e.printStackTrace();
         }
@@ -366,14 +368,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (resultCode == RESULT_OK) {
                     photoNum++;
                     galleryAddPic(imageUri);
-                    Toast toast= Toast.makeText(getApplicationContext(),"Picture successfully saved to "+fileName,Toast.LENGTH_LONG);
+                    Toast toast= Toast.makeText(getApplicationContext(),"Photo successfully saved to "+fileName,Toast.LENGTH_LONG);
                     toast.show();
                 }
                 break;
             case 3:
                 if (resultCode == RESULT_OK) {
                     System.out.println("hear");
-
                     //启动GPS服务
                     Intent gpsIntent = new Intent(this, GpsServer.class);
                     startService(gpsIntent);

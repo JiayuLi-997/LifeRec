@@ -75,7 +75,7 @@ public class NotifyService extends Service {
             String clocksID = (String) extras.get("clocks");
             String notifyText = "Please mark your current feeling!";
             setCycTimer(clocksID, 5, notifyText);
-            Toast.makeText(getApplicationContext(), "Set all notification!", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "Set all notification!", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Set notifications except routine records!", Toast.LENGTH_LONG).show();
