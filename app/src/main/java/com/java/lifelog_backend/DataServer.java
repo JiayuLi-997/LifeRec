@@ -24,6 +24,7 @@ import com.loopj.android.http.RequestParams;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class DataServer extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         setStartForeGround();
         WakeLocker.acquire(this.getBaseContext());
-        int interval = 1 * 61 * 1000;
+        int interval = getAutoInterval() * 60 * 1050;
         String uploadStatus = uploadData();
         if(!uploadStatus.equals("success"))
         {
@@ -76,6 +77,41 @@ public class DataServer extends Service {
 
         return super.onStartCommand(intent, flags, startId);
     }
+
+    private int getAutoInterval(){
+        String path = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend";
+        File file = new File(path + "/auto_upload_interval.txt");
+        try{
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                Log.i(TAG,"Auto interval file not exist");
+                return 10;
+            }
+            else{
+                InputStream instream = new FileInputStream(file);
+                if (instream != null)
+                {
+                    InputStreamReader inputreader = new InputStreamReader(instream);
+                    BufferedReader buffreader = new BufferedReader(inputreader);
+                    String line= buffreader.readLine();
+                    instream.close();
+                    Log.i(TAG,"Auto interval: "+line);
+                    return Integer.parseInt(line);
+                }
+                else{
+                    Log.i(TAG,"Auto interval file read error");
+                    return 10;
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, e.toString());
+            return 10;
+        }
+    }
+
     @Override
     public void onDestroy() {
 //        stopForeground(NOTICE_ID,);

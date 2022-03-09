@@ -81,4 +81,5 @@
     <string name="past_activity">请简要描述你过去%1$s分钟的活动:\n(如, 学习/工作, 开会, 娱乐, 运动, 休息, 进餐, 睡觉, 其他)</string>
     <string name="current_activity">请简要描述你当前活动:\n(如, 学习/工作, 开会, 娱乐, 运动, 休息, 进餐, 睡觉, 其他)</string>
     <string name="song_rate">请给这首歌打分</string>
+    <string name="upload_interval">自动上传时间间隔(分钟)</string>
 </resources>

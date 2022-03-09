@@ -11,11 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 import android.view.View;
@@ -29,7 +33,7 @@ import com.google.gson.JsonParser;
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText user_editText, bluetooth_editText, interval_editText;
     private int[] tagging_time, breakfast_time, lunch_time, dinner_time;
-    private TextView start_Textview, end_Textview, tagging_Textview, breakfast_Textview, lunch_Textview, dinner_Textview;
+    private TextView start_Textview, end_Textview, tagging_Textview, breakfast_Textview, lunch_Textview, dinner_Textview, interval_Textview;
     String TAG="SettingActivity";
 
     @Override
@@ -43,7 +47,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.set_breakfast_time).setOnClickListener(this);
         findViewById(R.id.set_lunch_time).setOnClickListener(this);
         findViewById(R.id.set_dinner_time).setOnClickListener(this);
-
+        findViewById(R.id.upload_interval).setOnClickListener(this);
         findViewById(R.id.save_setting).setOnClickListener(this);
 
         init();
@@ -60,9 +64,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         breakfast_Textview = findViewById(R.id.TV_breakfast_time);
         lunch_Textview = findViewById(R.id.TV_lunch_time);
         dinner_Textview = findViewById(R.id.TV_dinner_time);
+        interval_Textview = findViewById(R.id.upload_interval);
 
         user_editText.setHint("Please set user index");
         bluetooth_editText.setHint("Please set bracelet index");
+        interval_Textview.setHint("10");
 
         String Setting_Path = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend/setting/";
         File openFile = new File(Setting_Path + "setting.json");
@@ -90,6 +96,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             dinner_Textview.setText(object.get("dinner_time_setting").getAsString());
 
             String reminderClocks = object.get("reminder_clocks").getAsString();
+            interval_Textview.setText(getAutoInterval());
 
             for (String clockId : reminderClocks.split(",")) {
                 int resID = getResources().getIdentifier("moment_" + clockId, "id", getPackageName());
@@ -299,7 +306,40 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             }
 
         }
+
+        // 单独存储upload interval
+        writeAutoInterval(interval_Textview.getText().toString());
         return (reminderClocks);
+    }
+
+    private void writeAutoInterval(String interval){
+        String path = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend";
+        File file = new File(path + "/auto_upload_interval.txt");
+        BufferedWriter out = null;
+        try {
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, false)));
+            Log.e("Record auto setting interval",interval );
+            out.write(interval);
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Record", e.toString());
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return;
     }
 
     private void startNotification(String clocks) {
@@ -315,6 +355,40 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         i.putExtra("dinner", dinner_time_setting);
         i.putExtra("clocks", clocks);
         startService(i);
+    }
+
+    private String getAutoInterval(){
+        String path = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend";
+        File file = new File(path + "/auto_upload_interval.txt");
+        try{
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                Log.i(TAG,"Auto interval file not exist");
+                return "10";
+            }
+            else{
+                InputStream instream = new FileInputStream(file);
+                if (instream != null)
+                {
+                    InputStreamReader inputreader = new InputStreamReader(instream);
+                    BufferedReader buffreader = new BufferedReader(inputreader);
+                    String line= buffreader.readLine();
+                    instream.close();
+                    Log.i(TAG,"Auto interval: "+line);
+                    return line;
+                }
+                else{
+                    Log.i(TAG,"Auto interval file read error");
+                    return "10";
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, e.toString());
+            return "10";
+        }
     }
 
 }

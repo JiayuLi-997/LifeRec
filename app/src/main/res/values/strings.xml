@@ -81,4 +81,5 @@
     <string name="past_activity">Please briefly describe your activities in last %1$s minutes:\n (e.g. studying/working, meeting, entertaining, sports, rest, eating, sleeping, others)</string>
     <string name="current_activity">Please briefly describe your activities:\n(e.g. studying/working, meeting, entertaining, sports, rest, eating, sleeping, others)</string>
     <string name="song_rate">Please rate this song:</string>
+    <string name="upload_interval">Auto upload Interval(minutes)</string>
 </resources>
