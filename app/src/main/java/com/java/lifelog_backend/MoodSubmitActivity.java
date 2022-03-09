@@ -78,15 +78,9 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
 
         // set all components
         state = 1;
-        Configuration configuration = getResources().getConfiguration();
 
         button.setVisibility(View.VISIBLE);
-        if(configuration.locale.getLanguage().contains("zh")){
-            button.setText("下一步");
-        }
-        else{
-            button.setText("Continue");
-        }
+        button.setText(R.string.next);
 
         // clear all data collected
         emotion_event = "";
@@ -94,11 +88,7 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
         ans.setText("");
         question_text.setVisibility(View.VISIBLE);
         ans.setVisibility(View.VISIBLE);
-        String msg = "Please describe the events that aroused your emotions briefly: ";
-        if(configuration.locale.getLanguage().contains("zh")){
-            msg = "请简要描述引起你情绪变化的事件：";
-        }
-        question_text.setText(msg);
+        question_text.setText(R.string.describe_event);
     }
 
     @Override
@@ -133,12 +123,7 @@ public class MoodSubmitActivity extends AppCompatActivity implements View.OnClic
                     case 1:
                         emotion_event = ans.getText().toString();
 //                            Toast.makeText(getApplicationContext(), emotion_event, Toast.LENGTH_SHORT).show();
-                        if(configuration.locale.getLanguage().contains("zh")) {
-                            question_text.setText("请记录事件发生的时间");
-                        }
-                        else{
-                            question_text.setText("Please record the time that event happened: ");
-                        }
+                        question_text.setText(R.string.record_event_time);
                         ans.setVisibility(View.INVISIBLE);
                         timePicker.setVisibility(View.VISIBLE);
                         timePicker.setIs24HourView(true);

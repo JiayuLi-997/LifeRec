@@ -81,10 +81,6 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
         mood = new double[]{0, 0};
         new_mood = new double[]{0, 0};
         Configuration configuration = getResources().getConfiguration();
-        Log.i(TAG,configuration.getLocales().toString());
-        Log.i(TAG,configuration.getLocales().toLanguageTags());
-        Log.i(TAG,configuration.locale.getLanguage());
-        Log.i(TAG,configuration.locale.getCountry());
         if(!(configuration.locale.getLanguage().contains("zh"))){
             Log.i(TAG,"English version!");
             ImageView imageview=(ImageView)super.findViewById(R.id.mood_pic);
@@ -105,54 +101,27 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
         pmood = getIntent().getStringExtra("pmood");
         if (intentTitle != null)
             if (intentTitle.equals("music")) {
-                if(configuration.locale.getLanguage().contains("zh")){
-                    tx.setText("你现在的心情怎么样？");
-                }
-                else{
-                    tx.setText("How are you feeling now?");
-                }
+                tx.setText(R.string.How_feel_now);
                 showMusicDialog = false;
                 fromMusicDialog = true;
             }
             else if (intentTitle.equals("How were you feeling then??")) {
-                if(configuration.locale.getLanguage().contains("zh")){
-                    tx.setText("你当时的心情怎么样？");
-                }
-                else{
-                    tx.setText("How were you feeling then?");
-                }
+                tx.setText(R.string.How_feel_then);
                 fileReadMood = false;
                 showMusicDialog = true;
             }
             else if (intentTitle.equals("How were you feeling then?")) {
 //                System.out.println("but hear");
-                if(configuration.locale.getLanguage().contains("zh")){
-                    tx.setText("你当时的心情如何？");
-                }
-                else{
-                    tx.setText("What was your feeling then?");
-                }
-                //fileReadMood = false;
-                // showMusicDialog = true;
+                tx.setText(R.string.What_feel_then);
                 showMusicDialog = false;
             }
             else {
                 String title = getIntent().getStringExtra("title");
                 if (title.equals("How are you feeling now?")){
-                    if(configuration.locale.getLanguage().contains("zh")){
-                        tx.setText("你现在的心情怎么样？");
-                    }
-                    else{
-                        tx.setText("How are you feeling now?");
-                    }
+                    tx.setText(R.string.How_feel_now);
                 }
                 else if(title.equals("How were you feeling then?")){
-                    if(configuration.locale.getLanguage().contains("zh")){
-                        tx.setText("你当时的心情怎么样？");
-                    }
-                    else{
-                        tx.setText("How were you feeling then?");
-                    }
+                    tx.setText(R.string.How_feel_then);
                 }
                 showMusicDialog = false;
             }
@@ -353,16 +322,8 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showMusicDialog() {
         final Configuration configuration = getResources().getConfiguration();
-        String msg = "Would you like to listen to some music";
-        String yes = "Yes";
-        String no = "No";
-        if(configuration.locale.getLanguage().contains("zh")){
-            msg = "你现在想听音乐吗？";
-            yes = "是";
-            no = "否";
-        }
         builder = new AlertDialog.Builder(this).setIcon(R.mipmap.ic_launcher).setTitle("Music")
-                .setMessage(msg).setPositiveButton(yes, new DialogInterface.OnClickListener() {
+                .setMessage(R.string.music_dialog).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Toast.makeText(MoodActivity.this, "听音乐", Toast.LENGTH_LONG).show();
@@ -377,15 +338,10 @@ public class MoodActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         startActivityForResult(intent, 10);
                         TextView tx = findViewById(R.id.mood_text);
-                        if(configuration.locale.getLanguage().contains("zh")){
-                            tx.setText("你现在的心情如何？");
-                        }
-                        else{
-                            tx.setText("How are you feeling now?");
-                        }
+                        tx.setText(R.string.How_feel_now);
 
                     }
-                }).setNegativeButton(no, new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Toast.makeText(MoodActivity.this, "不听音乐", Toast.LENGTH_LONG).show();

@@ -149,13 +149,7 @@ public class MoodRequestActivity extends AppCompatActivity implements View.OnCli
                         if (got_emotion) {
 
                             emotion_event = ans.getText().toString();
-//                            Toast.makeText(getApplicationContext(), emotion_event, Toast.LENGTH_SHORT).show();
-                            if(configuration.locale.getLanguage().contains("zh")) {
-                                question_text.setText("请记录事件发生的时间");
-                            }
-                            else{
-                                question_text.setText("Please record the time that event happened: ");
-                            }
+                            question_text.setText(R.string.record_event_time);
                             ans.setVisibility(View.INVISIBLE);
                             timePicker.setVisibility(View.VISIBLE);
                             timePicker.setIs24HourView(true);
@@ -203,12 +197,7 @@ public class MoodRequestActivity extends AppCompatActivity implements View.OnCli
         Configuration configuration = getResources().getConfiguration();
 
         button.setVisibility(View.VISIBLE);
-        if(configuration.locale.getLanguage().contains("zh")){
-            button.setText("下一步");
-        }
-        else{
-            button.setText("Continue");
-        }
+        button.setText(R.string.next);
 
 
         // clear all data collected
@@ -223,11 +212,7 @@ public class MoodRequestActivity extends AppCompatActivity implements View.OnCli
                 if (yes.isChecked()) {
 //                    Toast.makeText(getApplicationContext(), "请简要描述激发您强烈情绪的事件：", Toast.LENGTH_SHORT).show();
                     got_emotion = true;
-                    String msg = "Please describe the events that aroused your emotions briefly:";
-                    if(configuration.locale.getLanguage().contains("zh")){
-                        msg = "请简要描述引发你情绪变化的事件";
-                    }
-                    question_text.setText(msg);
+                    question_text.setText(R.string.record_event);
                 }
                 break;
             case R.id.mood_request_no:
@@ -236,23 +221,13 @@ public class MoodRequestActivity extends AppCompatActivity implements View.OnCli
                     got_emotion = false;
                     String text;
                     if (interval != null) {
-                        text = "Please briefly describe your activities in last " + interval + " minutes:\n(e.g. studying/working, meeting, entertaining, sports, rest, eating, sleeping, others)";
-                        if(configuration.locale.getLanguage().contains("zh")){
-                            text = "请简要描述你过去"+interval+"分钟的活动:\n(如, 学习/工作, 开会, 娱乐, 运动, 休息, 进餐, 睡觉, 其他)";
-                        }
+                        text = String.format(getString(R.string.past_activity),interval);
+
                     } else {
-                        text = "Please briefly describe your activities:\n(e.g. studying/working, meeting, entertaining, sports, rest, eating, sleeping, others))";
-                        if(configuration.locale.getLanguage().contains("zh")){
-                            text = "请简要描述你当前活动:\n(如, 学习/工作, 开会, 娱乐, 运动, 休息, 进餐, 睡觉, 其他)";
-                        }
+                        text = getString(R.string.current_activity);
                     }
                     question_text.setText(text);
-                    if(configuration.locale.getLanguage().contains("zh")){
-                        button.setText("下一步");
-                    }
-                    else {
-                        button.setText("Continue");
-                    }
+                    button.setText(R.string.next);
                 }
                 break;
         }
@@ -313,17 +288,9 @@ public class MoodRequestActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void showMusicDialog() {
-        String msg = "Would you like to listen to some music";
-        String yes = "Yes";
-        String no = "No";
-        Configuration configuration = getResources().getConfiguration();
-        if(configuration.locale.getLanguage().contains("zh")){
-            msg = "你现在想听音乐吗？";
-            yes = "是";
-            no = "否";
-        }
+
         builder = new AlertDialog.Builder(this).setIcon(R.mipmap.ic_launcher).setTitle("Music")
-                .setMessage(msg).setPositiveButton(yes, new DialogInterface.OnClickListener() {
+                .setMessage(R.string.music_dialog).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Toast.makeText(MoodRequestActivity.this, "听音乐", Toast.LENGTH_LONG).show();
@@ -336,7 +303,7 @@ public class MoodRequestActivity extends AppCompatActivity implements View.OnCli
                         intent.putExtra("pmood", curEmotionString);
                         startActivityForResult(intent, 10);
                     }
-                }).setNegativeButton(no, new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Toast.makeText(MoodRequestActivity.this, "不听音乐", Toast.LENGTH_LONG).show();

@@ -66,4 +66,19 @@
     <string name="submit_context">完成</string>
     <string name="auto_upload_close">自动上传已关闭</string>
     <string name="auto_upload_open">自动上传已开启</string>
+    <string name="describe_event">请简要描述引起你情绪变化的事件：</string>
+    <string name="How_feel_now">你现在的心情怎么样？</string>
+    <string name="How_feel_then">你当时的心情怎么样？</string>
+    <string name="What_feel_then">你当时的心情怎么样？</string>
+    <string name="music_dialog">你现在想听点音乐吗？</string>
+    <string name="skip_reminder">跳过本次提醒</string>
+    <string name="choose_skip_reminder">你选择了跳过本次提醒</string>
+    <string name="remind_latter">稍后提醒我</string>
+    <string name="choose_remind_latter">五分钟后再次提醒</string>
+    <string name="open_now">现在前往</string>
+    <string name="record_event_time">请记录事件发生的时间</string>
+    <string name="record_event">请简要描述引发你情绪变化的事件</string>
+    <string name="past_activity">请简要描述你过去%1$s分钟的活动:\n(如, 学习/工作, 开会, 娱乐, 运动, 休息, 进餐, 睡觉, 其他)</string>
+    <string name="current_activity">请简要描述你当前活动:\n(如, 学习/工作, 开会, 娱乐, 运动, 休息, 进餐, 睡觉, 其他)</string>
+    <string name="song_rate">请给这首歌打分</string>
 </resources>

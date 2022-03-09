@@ -7,7 +7,6 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_context">ContextActivity</string>
@@ -67,4 +66,19 @@
     <string name="submit_context">Finish</string>
     <string name="auto_upload_close">Auto uploading close</string>
     <string name="auto_upload_open">Auto uploading open</string>
+    <string name="describe_event">Please describe the events that aroused your emotions briefly: </string>
+    <string name="How_feel_now">How are you feeling now?</string>
+    <string name="How_feel_then">How were you feeling then?</string>
+    <string name="What_feel_then">What was your feeling then?</string>
+    <string name="music_dialog">Would you like to listen to some music?</string>
+    <string name="skip_reminder">Skip current reminder</string>
+    <string name="choose_skip_reminder">You choose to skip the reminder</string>
+    <string name="remind_latter">Remind me latter</string>
+    <string name="choose_remind_latter">Remind in five minutes</string>
+    <string name="open_now">Open the App now</string>
+    <string name="record_event_time">Please record the time that event happened:</string>
+    <string name="record_event">Please describe the events that aroused your emotions briefly</string>
+    <string name="past_activity">Please briefly describe your activities in last %1$s minutes:\n (e.g. studying/working, meeting, entertaining, sports, rest, eating, sleeping, others)</string>
+    <string name="current_activity">Please briefly describe your activities:\n(e.g. studying/working, meeting, entertaining, sports, rest, eating, sleeping, others)</string>
+    <string name="song_rate">Please rate this song:</string>
 </resources>

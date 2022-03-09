@@ -32,11 +32,7 @@ public class ResolveNotification extends AppCompatActivity {
 
     public void tipClick(final String notifyText) {
         final Context context = getApplicationContext();
-        Configuration configuration = getResources().getConfiguration();
-        String language="EN";
-        if(configuration.locale.getLanguage().contains("zh")) {
-            language="CH";
-        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("");
         builder.setMessage(notifyText);
@@ -44,19 +40,10 @@ public class ResolveNotification extends AppCompatActivity {
         //点击对话框以外的区域是否让对话框消失
         builder.setCancelable(true);
         //设置反面按钮
-        String msg = "跳过本次提醒";
-        if(language=="EN"){
-            msg = "Skip current reminder!";
-        }
-        final String curLanguage = language;
-        builder.setNegativeButton(msg, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.skip_reminder, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(curLanguage=="CH"){
-                    Toast.makeText(context, "你选择了跳过提醒", Toast.LENGTH_SHORT).show();}
-                else{
-                    Toast.makeText(context, "You choose to skip the reminder", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(context, R.string.choose_skip_reminder, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 startActivity(intent);
@@ -64,14 +51,10 @@ public class ResolveNotification extends AppCompatActivity {
             }
         });
         //设置中立按钮
-        msg = "稍后提醒我";
-        if(language=="EN"){
-            msg = "Remind me latter";
-        }
-        builder.setNeutralButton(msg, new DialogInterface.OnClickListener() {
+        builder.setNeutralButton(R.string.remind_latter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(context, "五分钟后再次提醒！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,R.string.choose_remind_latter,Toast.LENGTH_SHORT).show();
                 AlarmTimer timer = new AlarmTimer();
                 long startTime = SystemClock.currentThreadTimeMillis();
                 long cycTime = 5 * 60 * 1000;
@@ -87,11 +70,7 @@ public class ResolveNotification extends AppCompatActivity {
             }
         });
         //设置正面按钮
-        msg = "现在前往";
-        if(language=="EN"){
-            msg = "Open the App now";
-        }
-        builder.setPositiveButton(msg, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.open_now, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 //                Toast.makeText(context, "你选择了现在前往", Toast.LENGTH_SHORT).show();
