@@ -65,4 +65,6 @@
     <string name="insert_below">Insert below</string>
     <string name="language">English/中文</string>
     <string name="submit_context">Finish</string>
+    <string name="auto_upload_close">Auto uploading close</string>
+    <string name="auto_upload_open">Auto uploading open</string>
 </resources>

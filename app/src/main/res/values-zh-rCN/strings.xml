@@ -64,4 +64,6 @@
     <string name="insert_below">在下方插入活动</string>
     <string name="language">中文/English</string>
     <string name="submit_context">完成</string>
+    <string name="auto_upload_close">自动上传已关闭</string>
+    <string name="auto_upload_open">自动上传已开启</string>
 </resources>

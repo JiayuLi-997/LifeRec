@@ -45,7 +45,14 @@ import android.widget.Chronometer;
 import android.widget.Toast;
 import android.widget.Button;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +62,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.suke.widget.SwitchButton;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -210,6 +218,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_trace).setOnClickListener(this);
         findViewById(R.id.btn_setting).setOnClickListener(this);
         findViewById(R.id.btn_language).setOnClickListener(this);
+        com.suke.widget.SwitchButton switchButton = (com.suke.widget.SwitchButton)
+                findViewById(R.id.switch_button);
+        String uploadStatus = getAutoSetting();
+        TextView dataText = (TextView) findViewById(R.id.data_text);
+        Log.i(TAG,uploadStatus);
+        if(uploadStatus.contains("open")){
+            Log.i(TAG,"Upload open");
+            switchButton.setChecked(true);
+            dataText.setText(R.string.auto_upload_open);
+            initWakeLock4Data();
+        }
+        else{
+            dataText.setText(R.string.auto_upload_close);
+            switchButton.setChecked(false);
+            closeAutoUpload();
+        }
+        switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                TextView dataText = (TextView) findViewById(R.id.data_text);
+                if(isChecked){
+                    dataText.setText(R.string.auto_upload_open);
+                    writeAutoSetting("open");
+                    initWakeLock4Data();
+                }
+                else{
+                    dataText.setText(R.string.auto_upload_close);
+                    writeAutoSetting("close");
+                    closeAutoUpload();
+                }
+            }
+        });
     }
 
     @Override
@@ -386,7 +426,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             default:
-                Toast.makeText(getApplicationContext(),"break",Toast.LENGTH_LONG).show();
+                Log.i(TAG,"Other");
+//                Toast.makeText(getApplicationContext(),"break",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -405,9 +446,91 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void initWakeLock4Data(){
+        PowerManager pm = (PowerManager) mainContext.getSystemService(Context.POWER_SERVICE);
+        if (!pm.isIgnoringBatteryOptimizations(getPackageName())) {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse("package:lifelog_backend"));
+            MainActivity.this.startActivityForResult(intent, 4);
+        }
+        //启动数据自动上传
+        Intent dataIntent = new Intent(this, DataServer.class);
+        startService(dataIntent);
+    }
+
+    public void closeAutoUpload(){
+        Intent dataIntent = new Intent(this, DataServer.class);
+        stopService(dataIntent);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
 
+    private boolean writeAutoSetting(String setting){
+        String path = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend";
+        File file = new File(path + "/auto_upload.txt");
+        BufferedWriter out = null;
+        try {
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, false)));
+            Log.e("Record auto setting",setting );
+            out.write(setting);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Record", e.toString());
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    private String getAutoSetting(){
+        String path = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend";
+        File file = new File(path + "/auto_upload.txt");
+        try{
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                Log.i(TAG,"Auto file not exist");
+                return "close";
+            }
+            else{
+                InputStream instream = new FileInputStream(file);
+                if (instream != null)
+                {
+                    InputStreamReader inputreader = new InputStreamReader(instream);
+                    BufferedReader buffreader = new BufferedReader(inputreader);
+                    String line= buffreader.readLine();
+                    instream.close();
+                    Log.i(TAG,"Auto file: "+line);
+                    return line;
+                }
+                else{
+                    Log.i(TAG,"Auto file read error");
+                    return "close";
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, e.toString());
+            return "close";
+        }
+
+    }
 }
