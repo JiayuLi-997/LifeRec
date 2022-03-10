@@ -6,9 +6,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -64,7 +66,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     LocationManager lm;
     Context mainContext;
     int photoNum = 0;
@@ -72,6 +74,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Uri imageUri;
     String intervalTime;
     String fileName;
+
+    private Context mContext;
+    private boolean[] checkItems;
+    private AlertDialog alert = null;
+    private AlertDialog.Builder builder = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,25 +89,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         photoNum = getPhotoNum();
         photoButton = (Button) findViewById(R.id.photo);
         photoButton.setOnClickListener(this);
-        /*photoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //获取拍照权限
-
-                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
-                } else openCamera();
-
-                PopupMenu popup = new PopupMenu(this, view);//第二个参数是绑定的那个view
-                //获取菜单填充器
-                MenuInflater inflater = popup.getMenuInflater();
-                //填充菜单
-                inflater.inflate(R.menu.photo, popup.getMenu());
-                //绑定菜单项的点击事件
-                popup.setOnMenuItemClickListener(this);
-                popup.show(); //这一行代码不要忘记了
-            }
-        });*/
 
         //获取GPS权限
         if (!isGpsAble()) {
@@ -247,42 +235,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 this.startActivityForResult(intent3, 100);
                 break;
             case R.id.photo:
-
-                PopupMenu popup = new PopupMenu(this, view);//第二个参数是绑定的那个view
-                //获取菜单填充器
-                MenuInflater inflater = popup.getMenuInflater();
-                //填充菜单
-                inflater.inflate(R.menu.photo, popup.getMenu());
-                //绑定菜单项的点击事件
-                popup.setOnMenuItemClickListener(this);
-                popup.show(); //这一行代码不要忘记了
+                final String[] options = new String[]{"拍照", "从相册选择"};
+                alert = null;
+                builder = new AlertDialog.Builder(MainActivity.this);
+                alert = builder.setTitle("选择图片")
+                        .setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(), "你选择了" + options[which], Toast.LENGTH_SHORT).show();
+                                switch (which){
+                                    case 0:
+                                        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                                            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+                                        }
+                                        else openCamera();
+                                        break;
+                                    case 1:
+                                        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                                            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
+                                        }
+                                        else openAlbum();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }).create();
+                alert.show();
         }
-    }
-
-    //弹出式菜单的单击事件处理
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        // 菜单选项
-        switch (item.getItemId()) {
-            case R.id.camera:
-                //Toast.makeText(this, "拍照", Toast.LENGTH_SHORT).show();
-                //检查是否获得权限
-                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
-                }
-                else openCamera();
-                break;
-            case R.id.photo:
-                //Toast.makeText(this, "相册", Toast.LENGTH_SHORT).show();
-                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
-                }
-                else openAlbum();
-                break;
-            default:
-                break;
-        }
-        return false;
     }
 
 
