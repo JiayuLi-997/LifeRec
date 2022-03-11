@@ -6,12 +6,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -20,6 +24,7 @@ import android.location.LocationManager;
 
 import android.preference.PreferenceActivity;
 
+import android.provider.DocumentsContract;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -79,6 +84,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String fileName;
     String TAG="mainActivity";
 
+    private Context mContext;
+    private boolean[] checkItems;
+    private AlertDialog alert = null;
+    private AlertDialog.Builder builder = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {//构造函数(?)
         super.onCreate(savedInstanceState);//super代表基类
@@ -87,15 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mainContext = this.getBaseContext();
         photoNum = getPhotoNum();//照片数量
         photoButton = (Button) findViewById(R.id.photo);
-        photoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //获取拍照权限
-                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
-                } else openCamera();
-            }
-        });
+        photoButton.setOnClickListener(this);
 
         //获取GPS权限
         if (!isGpsAble()) {
@@ -294,6 +296,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(MainActivity.this, MainActivity.class));
                     finish();
                 }
+                break;
+            case R.id.photo:
+                final String[] options = new String[]{"拍照", "从相册选择"};
+                alert = null;
+                builder = new AlertDialog.Builder(MainActivity.this);
+                alert = builder.setTitle("选择图片")
+                        .setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(), "你选择了" + options[which], Toast.LENGTH_SHORT).show();
+                                switch (which){
+                                    case 0:
+                                        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                                            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+                                        }
+                                        else openCamera();
+                                        break;
+                                    case 1:
+                                        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                                            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
+                                        }
+                                        else openAlbum();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }).create();
+                alert.show();
+                break;
         }
     }
 
@@ -332,6 +364,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case 1:
                     Toast.makeText(MainActivity.this, "Camera not available, please enable the permission", Toast.LENGTH_LONG).show();
+                    break;
+            }
+        }
+        //相册权限
+        else if(requestCode == 3){
+            switch ((grantResults[0])) {
+                case 0:
+                    openAlbum();
+                    break;
+                case 1:
+                    Toast.makeText(MainActivity.this, "Photo album not available, please enable the permission", Toast.LENGTH_LONG).show();
                     break;
             }
         }
@@ -380,6 +423,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void openAlbum() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+        sdf.applyPattern("MM-dd-HH-mm-ss");// a为am/pm的标记
+        fileName = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend/image/" +
+                "image_" + photoNum+ "_" + sdf.format(date) +".png";
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        //Intent.ACTION_GET_CONTENT = "android.intent.action.GET_CONTENT"
+        intent.setType("image/*");
+        startActivityForResult(intent, 2);
+    }
+
     private void galleryAddPic(Uri uri){
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         mediaScanIntent.setData(uri);
@@ -410,6 +465,62 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     galleryAddPic(imageUri);
                     Toast toast= Toast.makeText(getApplicationContext(),"Photo successfully saved to "+fileName,Toast.LENGTH_LONG);
                     toast.show();
+                    //保存到系统相册
+                    try {
+                        MediaStore.Images.Media.insertImage(getContentResolver(), fileName, fileName,"discription");
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + fileName)));
+                }
+                break;
+            case 2: //从相册选照片
+                String imagePath = null;
+                if (Build.VERSION.SDK_INT >= 19) {
+                    // 4.4及以上系统使用这个方法处理图片
+                    //Toast.makeText(this, "album >=19", Toast.LENGTH_SHORT).show();
+                    Uri uri = data.getData();
+                    //imagePath = uritopath(uri);
+                    if (DocumentsContract.isDocumentUri(this, uri)) {
+                        // 如果是document类型的Uri，则通过document id处理
+                        //Toast.makeText(this, "uri: document", Toast.LENGTH_SHORT).show();
+                        Log.w("uritopath: ","document");
+                        String docId = DocumentsContract.getDocumentId(uri);
+                        if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                            String id = docId.split(":")[1];
+                            // 解析出数字格式的id
+                            String selection = MediaStore.Images.Media._ID + "=" + id;
+                            imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+                        } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                            Uri contentUri = ContentUris.withAppendedId(Uri.parse("content: //downloads/public_downloads"), Long.valueOf(docId));
+                            //Toast.makeText(this, "album: document: ababa", Toast.LENGTH_SHORT).show();
+                            imagePath = getImagePath(contentUri, null);
+                        }
+                    } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+                        Log.w("uritopath: ","content");
+                        //Toast.makeText(this, "uri: content", Toast.LENGTH_SHORT).show();
+                        // 如果是content类型的Uri，则使用普通方式处理
+                        imagePath = getImagePath(uri, null);
+                    } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+                        //Toast.makeText(this, "uri: file", Toast.LENGTH_SHORT).show();
+                        // 如果是file类型的Uri，直接获取图片路径即可
+                        imagePath = uri.getPath();
+                    }
+
+                } else {
+                    // 4.4以下系统使用这个方法处理图片
+                    //handleImageBeforeKitKat(data);
+                    Uri uri = data.getData();
+                    imagePath = getImagePath(uri, null);
+
+                }
+                Bitmap bits = getbit(imagePath);
+                saveImgToDisk(bits);
+                if (resultCode == RESULT_OK) {
+                    photoNum++;
+                    galleryAddPic(imageUri);
+                    Toast toast= Toast.makeText(getApplicationContext(),"Picture successfully saved to "+fileName,Toast.LENGTH_LONG);
+                    toast.show();
                 }
                 break;
             case 3:
@@ -428,6 +539,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 Log.i(TAG,"Other");
 //                Toast.makeText(getApplicationContext(),"break",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private String getImagePath(Uri uri, String selection) {
+        String path = null;
+        // 通过Uri和selection来获取真实的图片路径
+        Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
+
+    private Bitmap getbit(String path){
+        Bitmap bitmap = null;
+        if(TextUtils.isEmpty(path)) {
+            return bitmap;
+        }
+        try {
+            File file = new File(path);
+            if (file.exists()) {
+                BitmapFactory.Options opt = new BitmapFactory.Options();
+                opt.inPreferredConfig = Bitmap.Config.RGB_565;
+                opt.inPurgeable = true;
+                opt.inInputShareable = true;
+                bitmap = BitmapFactory.decodeFile(path, opt);
+            }
+        } catch (Exception e) {
+        }
+
+        return bitmap;
+
+    }
+
+    public void saveImgToDisk(Bitmap bitmap) {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+        sdf.applyPattern("MM-dd-HH-mm-ss");// a为am/pm的标记
+        fileName = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend/image/" +
+                "image_" + photoNum + "_" + sdf.format(date) +".png";
+        //System.out.println(fileName);
+        File file = new File(fileName);
+        if(file == null) {
+            return;
+        }
+
+        //if(isFileExists(file.getPath())) {
+        //    return;
+        //}
+
+
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            String path = file.getPath();
+            out.flush();
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
