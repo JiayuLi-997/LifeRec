@@ -319,7 +319,7 @@ public class MusicActivity extends AppCompatActivity {
                 System.out.println("userPrefernce:" + userPreference);
             }
         });
-
+        builder.setCancelable(false);//点击空白处时不会关闭
         builder.show();
     }
 
