@@ -45,11 +45,12 @@
     <string name="index">用户ID：</string>
     <string name="index_bracelet">手环ID：</string>
     <string name="receive_reminder">请选择接收日常心情记录的提醒时间：</string>
-    <string name="mark_reminder">活动记录提醒时间：</string>
+    <string name="reminder_time">请设置提醒时间：</string>
+    <string name="mark_reminder">活动记录：</string>
     <string name="modify">修改</string>
-    <string name="supper_reminder">晚餐记录的提醒时间：</string>
-    <string name="lunch_reminder">午餐记录的提醒时间：</string>
-    <string name="breakfast_reminder">早餐记录的提醒时间：</string>
+    <string name="supper_reminder">晚餐记录：</string>
+    <string name="lunch_reminder">午餐记录：</string>
+    <string name="breakfast_reminder">早餐记录：</string>
     <string name="save">保存修改</string>
     <string name="finish">完成</string>
     <string name="set_time">设置时间：</string>

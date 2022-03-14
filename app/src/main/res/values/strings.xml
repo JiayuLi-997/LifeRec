@@ -45,11 +45,12 @@
     <string name="index">User ID:</string>
     <string name="index_bracelet">Bracelet ID:</string>
     <string name="receive_reminder">Please select time to receive reminders of daily mood recording:</string>
-    <string name="mark_reminder">Activity recording reminder time:</string>
+    <string name="reminder_time">Please set reminder time:</string>
+    <string name="mark_reminder">Activity recording:</string>
     <string name="modify">Modify</string>
-    <string name="supper_reminder">Supper recording reminder time:</string>
-    <string name="lunch_reminder">Lunch recording reminder time:</string>
-    <string name="breakfast_reminder">Breakfast recording reminder time:</string>
+    <string name="supper_reminder">Supper recording:</string>
+    <string name="lunch_reminder">Lunch recording:</string>
+    <string name="breakfast_reminder">Breakfast recording:</string>
     <string name="save">Save the changes</string>
     <string name="set_time">Set time:</string>
     <string name="finish">Finish</string>
