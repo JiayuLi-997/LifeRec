@@ -15,9 +15,9 @@
     <ListView
         android:id="@+id/music_list"
         android:layout_width="match_parent"
-        android:layout_height="440dp"
+        android:layout_height="240dp"
 
-        android:layout_weight="1"
+        android:layout_weight="10"
         android:divider="@null"
         android:groupIndicator="@null"
         android:layoutDirection="ltr"></ListView>
@@ -25,9 +25,9 @@
     <Button
         android:id="@+id/music_back_button"
         android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_weight="15"
+        android:layout_weight="1"
         android:background="@drawable/btn_shape_green"
         android:text="@string/back"
         android:textSize="15dp" />
