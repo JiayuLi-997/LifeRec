@@ -84,7 +84,8 @@ public class NotifyAlarmReceiver extends BroadcastReceiver {
 //                        .setContentIntent(
 //                                PendingIntent.getActivity(
 //                                        context.getApplicationContext(),1,new
-//                                                Intent(
+//                                                Intent
+//                                                .setContent(
 //                                                MainActivity.this,
 //                                                NotificationResult.class),
 //                                        PendingIntent.FLAG_CANCEL_CURRENT
