@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollview"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/background">
     <!--<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
     <!--    xmlns:tools="http://schemas.android.com/tools"-->
@@ -16,8 +17,8 @@
         android:id="@+id/context_all"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/background">
 
         <TextView
             android:layout_width="match_parent"
@@ -27,209 +28,240 @@
             android:text="@string/record_enviro"
             android:textSize="22dp" />
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/location"
-            android:textColor="@android:color/black"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1" />
-
-        <RadioGroup
-            android:id="@+id/indoor_radiobtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.26">
-
-            <RadioButton
-                android:id="@+id/door_in"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/indoor"
-                android:textSize="18dp" />
-
-            <RadioButton
-                android:id="@+id/door_out"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/outdoor"
-                android:textSize="18dp" />
-        </RadioGroup>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/surround"
-            android:textColor="@android:color/black"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1" />
-
-        <RadioGroup
-            android:id="@+id/company_radiobtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.26">
-
-            <RadioButton
-                android:id="@+id/company_alone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/alone"
-                android:textSize="18dp" />
-
-
-            <RadioButton
-                android:id="@+id/company_stranger"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/around_no_conver"
-                android:textSize="18dp" />
-
-            <RadioButton
-                android:id="@+id/company_friend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/around_conver"
-                android:textSize="18dp" />
-        </RadioGroup>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/where"
-            android:textColor="@android:color/black"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1" />
-
-        <RadioGroup
-            android:id="@+id/location_radiobtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.26">
-
-            <RadioButton
-                android:id="@+id/location_dorm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/home"
-                android:textSize="18dp" />
-
-
-            <RadioButton
-                android:id="@+id/location_classroom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/classss"
-                android:textSize="18dp" />
-
-            <RadioButton
-                android:id="@+id/location_library"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/library"
-                android:textSize="18dp" />
-
-
-            <RadioButton
-                android:id="@+id/location_lab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lab"
-                android:textSize="18dp" />
-
-            <RadioButton
-                android:id="@+id/location_res"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/diner"
-                android:textSize="18dp" />
-
-            <RadioButton
-                android:id="@+id/location_gym"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sports"
-                android:textSize="18dp" />
-
-            <RadioButton
-                android:id="@+id/location_entertain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/entertain"
-                android:textSize="18dp" />
-
-            <RadioButton
-                android:id="@+id/location_other"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/other_location"
-                android:textSize="18dp" />
-
-        </RadioGroup>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/other_loc_detail"
-            android:textColor="@android:color/black"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1" />
-
-        <EditText
-            android:id="@+id/location_text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.4" />
+            android:orientation="vertical"
+            android:background="@drawable/linear_border"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="1dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1" />
+
+            <RadioGroup
+                android:id="@+id/indoor_radiobtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.26">
+
+                <RadioButton
+                    android:id="@+id/door_in"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/indoor"
+                    android:textSize="18dp" />
+
+                <RadioButton
+                    android:id="@+id/door_out"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/outdoor"
+                    android:textSize="18dp" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/linear_border"
+            android:layout_marginVertical="1dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/surround"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1" />
+
+            <RadioGroup
+                android:id="@+id/company_radiobtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.26">
+
+                <RadioButton
+                    android:id="@+id/company_alone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/alone"
+                    android:textSize="18dp" />
+
+
+                <RadioButton
+                    android:id="@+id/company_stranger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/around_no_conver"
+                    android:textSize="18dp" />
+
+                <RadioButton
+                    android:id="@+id/company_friend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/around_conver"
+                    android:textSize="18dp" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/linear_border"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/where"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1" />
+
+            <RadioGroup
+                android:id="@+id/location_radiobtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.26">
+
+                <RadioButton
+                    android:id="@+id/location_dorm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/home"
+                    android:textSize="18dp" />
+
+
+                <RadioButton
+                    android:id="@+id/location_classroom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/classss"
+                    android:textSize="18dp" />
+
+                <RadioButton
+                    android:id="@+id/location_library"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/library"
+                    android:textSize="18dp" />
+
+
+                <RadioButton
+                    android:id="@+id/location_lab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lab"
+                    android:textSize="18dp" />
+
+                <RadioButton
+                    android:id="@+id/location_res"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diner"
+                    android:textSize="18dp" />
+
+                <RadioButton
+                    android:id="@+id/location_gym"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sports"
+                    android:textSize="18dp" />
+
+                <RadioButton
+                    android:id="@+id/location_entertain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/entertain"
+                    android:textSize="18dp" />
+
+                <RadioButton
+                    android:id="@+id/location_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/other_location"
+                    android:textSize="18dp" />
+
+            </RadioGroup>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/other_loc_detail"
+                android:textColor="@android:color/black"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1" />
+
+            <EditText
+                android:id="@+id/location_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.4" />
+
+        </LinearLayout>
+
+
 
         <Button
             android:id="@+id/submit_context"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="3dp"
             android:gravity="center"
             android:text="@string/submit_context"
             android:textSize="18sp" />
