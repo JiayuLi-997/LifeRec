@@ -42,14 +42,18 @@ The relationships between the models are shown below
 [![structure.png](https://i.postimg.cc/J493HB5p/structure.png)](https://postimg.cc/RNLJjh8t)
 
 ## Contributors
-Jiayu Li (JiayuLi-997), Yumeng Cui (Cuiym715), Peixuan Han (Hak_Han)
+Jiayu Li ([@JiayuLi-997](https://github.com/JiayuLi-997)), HanTian Zhang ([@]()), Yumeng Cui ([@Cuimy715](https://github.com/Cuiym715)), Peixuan Han ([@SIMAOinTHU](https://github.com/SIMAOinTHU)).
 
 ## Citation
 
 If you find the LifeRec App useful, please cite our work at CHIIR2022.
 ```
-@inproceddings{
-  Coming soon.
+@inproceedings{li2022liferec,
+  title={LifeRec: A Mobile App for Lifelog Recording and Ubiquitous Recommendation},
+  author={Li, Jiayu and Zhang, Hantian and He, Zhiyu and Xu, Rongwu and Wu, Pingfei and Zhang, Min and Liu, Yiqun and Ma, Shaoping},
+  booktitle={ACM SIGIR Conference on Human Information Interaction and Retrieval},
+  pages={342--346},
+  year={2022}
 }
 ```
 
