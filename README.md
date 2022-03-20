@@ -42,7 +42,7 @@ The relationships between the models are shown below
 [![structure.png](https://i.postimg.cc/J493HB5p/structure.png)](https://postimg.cc/RNLJjh8t)
 
 ## Contributors
-Jiayu Li ([@JiayuLi-997](https://github.com/JiayuLi-997)), HanTian Zhang ([@]()), Yumeng Cui ([@Cuimy715](https://github.com/Cuiym715)), Peixuan Han ([@SIMAOinTHU](https://github.com/SIMAOinTHU)).
+Jiayu Li ([@JiayuLi-997](https://github.com/JiayuLi-997)), HanTian Zhang ([@zhang-ht18](https://github.com/zhang-ht18)), Zhiyu He ([@hezy18](https://github.com/hezy18)), Rongwu Xu ([@pillowsofwind](https://github.com/pillowsofwind)), Pingfei Wu ([@wupf18](https://github.com/wupf18)), Yumeng Cui ([@Cuimy715](https://github.com/Cuiym715)), Peixuan Han ([@SIMAOinTHU](https://github.com/SIMAOinTHU)).
 
 ## Citation
 
