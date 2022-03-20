@@ -4,8 +4,8 @@
     <string name="action_settings">设置</string>
     <string name="first_fragment_label">第一个片段</string>
     <string name="second_fragment_label">第二个片段</string>
-    <string name="next">下一个</string>
-    <string name="previous">上一个</string>
+    <string name="next">下一步</string>
+    <string name="previous">上一步</string>
     <string name="hello_first_fragment">啊啊啊啊</string>
     <string name="hello_second_fragment">噢噢噢噢</string>
     <string name="title_activity_context">上下文活动</string>
@@ -81,6 +81,13 @@
     <string name="record_event">请简要描述引发你情绪变化的事件</string>
     <string name="past_activity">请简要描述你过去%1$s分钟的活动:\n(如, 学习/工作, 开会, 娱乐, 运动, 休息, 进餐, 睡觉, 其他)</string>
     <string name="current_activity">请简要描述你当前活动:\n(如, 学习/工作, 开会, 娱乐, 运动, 休息, 进餐, 睡觉, 其他)</string>
-    <string name="song_rate">请给这首歌打分</string>
+    <string name="song_rate">请给这音乐打分</string>
     <string name="upload_interval">自动上传时间间隔(分钟)</string>
+    <string name="one">1 (非常不喜欢)</string>
+    <string name="two">2 (不喜欢)</string>
+    <string name="three">3 (一般)</string>
+    <string name="four">4 (喜欢)</string>
+    <string name="five">5 (非常喜欢)</string>
+    <string name="song_rate_continous">请在如下滑动条中标出你对这首歌的喜爱程度</string>
+    <string name="confirm">确认</string>
 </resources>

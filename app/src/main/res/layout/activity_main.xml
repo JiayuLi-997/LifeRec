@@ -38,6 +38,18 @@
                 android:textSize="16dp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:alpha="0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" />
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/thuir_logo"
+                app:layout_constraintRight_toRightOf="parent" />
+
         </LinearLayout>
 
         <LinearLayout

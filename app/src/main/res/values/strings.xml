@@ -83,4 +83,11 @@
     <string name="current_activity">Please briefly describe your activities:\n(e.g. studying/working, meeting, entertaining, sports, rest, eating, sleeping, others)</string>
     <string name="song_rate">Please rate this song:</string>
     <string name="upload_interval">Auto upload Interval(minutes)</string>
+    <string name="one">1 (strongly dislike)</string>
+    <string name="two">2 (dislike)</string>
+    <string name="three">3 (neutral)</string>
+    <string name="four">4 (like)</string>
+    <string name="five">5 (strongly like)</string>
+    <string name="song_rate_continous">Please show your preference with the seek bar.</string>
+    <string name="confirm">OK</string>
 </resources>

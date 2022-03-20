@@ -107,23 +107,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Permission 申请
         List<String> permissionList = new ArrayList<>();
-        //从GPS获取最近的定位信息？？？？？
+        //从GPS获取最近的定位信息
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
+        // Storage permission
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
                 permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
         }
+
         if (!permissionList.isEmpty()) {
             ActivityCompat.requestPermissions(this, permissionList.toArray(new String[permissionList.size()]), 1);
         }
 
         // Add music tracing
-        checkPermission();
-        toggleNotificationListenerService(this);
+//        checkPermission();
+//        toggleNotificationListenerService(this);
 
 
         initView();
@@ -175,42 +177,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void checkPermission() {
-        if (!isEnabled()) {
-            startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
-        }
-    }
+//    private void checkPermission() {
+//        if (!isEnabled()) {
+//            startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+//        }
+//    }
+//
+//
+//    // 判断是否打开了通知监听权限
+//    private boolean isEnabled() {//name not clear enough?
+//        String pkgName = getPackageName();
+//        final String flat = Settings.Secure.getString(getContentResolver(), "enabled_notification_listeners");
+//        if (!TextUtils.isEmpty(flat)) {
+//            final String[] names = flat.split(":");
+//            for (int i = 0; i < names.length; i++) {
+//                final ComponentName cn = ComponentName.unflattenFromString(names[i]);
+//                if (cn != null) {
+//                    if (TextUtils.equals(pkgName, cn.getPackageName())) {
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
-
-    // 判断是否打开了通知监听权限
-    private boolean isEnabled() {//name not clear enough?
-        String pkgName = getPackageName();
-        final String flat = Settings.Secure.getString(getContentResolver(), "enabled_notification_listeners");
-        if (!TextUtils.isEmpty(flat)) {
-            final String[] names = flat.split(":");
-            for (int i = 0; i < names.length; i++) {
-                final ComponentName cn = ComponentName.unflattenFromString(names[i]);
-                if (cn != null) {
-                    if (TextUtils.equals(pkgName, cn.getPackageName())) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    //先关闭再启动
-    public static void toggleNotificationListenerService(Context context) {
-        PackageManager pm = context.getPackageManager();
-        pm.setComponentEnabledSetting(
-                new ComponentName(context, MyNotificationListenerService.class),
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-
-        pm.setComponentEnabledSetting(
-                new ComponentName(context, MyNotificationListenerService.class),
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-    }
+//    // Record music playing from the phone
+//    public static void toggleNotificationListenerService(Context context) {
+//        PackageManager pm = context.getPackageManager();
+//        pm.setComponentEnabledSetting(
+//                new ComponentName(context, MyNotificationListenerService.class),
+//                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+//
+//        pm.setComponentEnabledSetting(
+//                new ComponentName(context, MyNotificationListenerService.class),
+//                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+//    }
 
 
     private void initView() {//初始化
@@ -457,6 +459,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @NonNull Intent data) {//RESULT
         super.onActivityResult(requestCode, resultCode, data);
+        if(data==null){
+            return;
+        }
         //拍照请求成功
         switch (requestCode) {
             case 1:

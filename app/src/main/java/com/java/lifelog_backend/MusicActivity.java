@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -47,7 +51,7 @@ public class MusicActivity extends AppCompatActivity {
     Button backButton;
     boolean fromMoodActivity;
     String musicURL = "https://y.qq.com/n/yqq/song/001g6fPZ0pCL5K.html";
-    String serverURL = "https://ir.cs.tsinghua.edu.cn/lifelogger/recommendation&name=";
+    String serverURL = "https://ir.cs.tsinghua.edu.cn/lifelogger/cars&name=";
     String pmood = "";
     String userName;
     String urlResponseText;
@@ -56,9 +60,23 @@ public class MusicActivity extends AppCompatActivity {
     ListView mListView;
     int selectIndex = -1;
     int userPreference = 0;
+    int userPreferenceC = 0;
+    long CONNECT_TIMEOUT = 90;
+    long WRITE_TIMEOUT = 85;
+    long READ_TIMEOUT = 85;
+    String TAG = "MusicActivity";
+    private AlertDialog alert = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String contextChoice = getAutoUploadSetting();
+        if(contextChoice.contains("open")){
+            Log.i(TAG,"Upload open");
+            serverURL = "https://ir.cs.tsinghua.edu.cn/lifelogger/cars&name=";
+        }
+        else{
+            serverURL =  "https://ir.cs.tsinghua.edu.cn/lifelogger/recommendation&name=";
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
         getUserName();
@@ -107,6 +125,7 @@ public class MusicActivity extends AppCompatActivity {
                     intent.putExtra("responseText", urlResponseText);
                     intent.putExtra("userPreference", userPreference);
                     intent.putExtra("musicNum", musicInfos.size());
+                    intent.putExtra("userPreferenceC",userPreferenceC);
                     setResult(RESULT_OK, intent);
                     finish();
                 } else {
@@ -144,9 +163,11 @@ public class MusicActivity extends AppCompatActivity {
                         if (i == selectIndex) {
                             musicObject.addProperty("click", 1);
                             musicObject.addProperty("preference", userPreference);
+                            musicObject.addProperty("preferenceC", userPreferenceC);
                         } else {
                             musicObject.addProperty("click", 0);
                             musicObject.addProperty("preference", 0);
+                            musicObject.addProperty("preferenceC", 0);
                         }
                         musicObject.addProperty("mid", objectList.get(i).get("mid").getAsString());
 //                        musicObject.addProperty("mood_before", old_mood[0]+","+old_mood[1]);
@@ -204,7 +225,10 @@ public class MusicActivity extends AppCompatActivity {
         if (userName == null)
             userName = "anonymous user";
         System.out.println("send Info:" + userName);
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder().connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS) //连接超时
+                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS) //读取超时
+                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS) //写超时
+                .build();
         Request request = new Request.Builder().url(serverURL + userName + "__" + pmood).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -304,23 +328,72 @@ public class MusicActivity extends AppCompatActivity {
 
     }
 
-    private void showRatingDialog() {
+    public void showRatingDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MusicActivity.this);
-        String[] tempKey = {"1 (strongly dislike)", "2 (dislike)", "3 (neutral)", "4 (like)", "5 (strongly like)"};
-        Configuration configuration = getResources().getConfiguration();
-        if(configuration.locale.getLanguage().contains("zh")){
-            tempKey = new String[]{"1 (非常不喜欢)", "2 (不喜欢)","3 (一般)","4 (喜欢)","5 (非常喜欢)"};
-        }
-        builder.setTitle(R.string.song_rate);
-        builder.setItems(tempKey, new DialogInterface.OnClickListener() {
+        View dia_view = View.inflate(this,R.layout.music_ratingdialog,null);
+        builder.setView(dia_view);
+        builder.setCancelable(false);
+        alert = builder.create();
+
+        dia_view.findViewById(R.id.btn_dialog_close).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                userPreference = i + 1;
-                System.out.println("userPrefernce:" + userPreference);
+            public void onClick(View view) {
+                alert.dismiss();
             }
         });
-        builder.setCancelable(false);//点击空白处时不会关闭
-        builder.show();
+
+        RadioGroup rating = dia_view.findViewById(R.id.radio_rating);
+        SeekBar ratingBar = dia_view.findViewById(R.id.rating_bar);
+
+        rating.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                RadioButton radbtn = (RadioButton) radioGroup.findViewById(checkedId);
+                Log.e(TAG,radbtn.getText().toString());
+                userPreference = (int)radbtn.getText().charAt(0)-48;
+                Log.e(TAG,"Preference is "+userPreference);
+//                userPreference = 0;
+//                Log.i(TAG,"CHECK id is "+Integer.toString(checkedId));
+//                Log.i(TAG,"CHECKID is "+Integer.toString(checkedId));
+//                userPreference = checkedId+1;
+//                Log.i(TAG,Integer.toString(userPreference));
+            }
+        });
+        ratingBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                userPreferenceC = progress;
+                Log.i(TAG,Integer.toString(progress));
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        alert.show();
+
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//        builder.show();
+
+//        String[] tempKey = {"1 (strongly dislike)", "2 (dislike)", "3 (neutral)", "4 (like)", "5 (strongly like)"};
+//        Configuration configuration = getResources().getConfiguration();
+//        if(configuration.locale.getLanguage().contains("zh")){
+//            tempKey = new String[]{"1 (非常不喜欢)", "2 (不喜欢)","3 (一般)","4 (喜欢)","5 (非常喜欢)"};
+//        }
+//        builder.setTitle(R.string.song_rate);
+//        builder.setItems(tempKey, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                userPreference = i + 1;
+//                System.out.println("userPrefernce:" + userPreference);
+//            }
+//        });
+//        builder.setCancelable(false);//点击空白处时不会关闭
+//        builder.show();
     }
 
     private double[] getLatestMood() {
@@ -360,6 +433,41 @@ public class MusicActivity extends AppCompatActivity {
             }
         }
         return latestMood;
+    }
+
+    private String getAutoUploadSetting(){
+        String path = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend";
+        File file = new File(path + "/auto_upload.txt");
+        try{
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                Log.i(TAG,"Auto file not exist");
+                return "close";
+            }
+            else{
+                InputStream instream = new FileInputStream(file);
+                if (instream != null)
+                {
+                    InputStreamReader inputreader = new InputStreamReader(instream);
+                    BufferedReader buffreader = new BufferedReader(inputreader);
+                    String line= buffreader.readLine();
+                    instream.close();
+                    Log.i(TAG,"Auto file: "+line);
+                    return line;
+                }
+                else{
+                    Log.i(TAG,"Auto file read error");
+                    return "close";
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, e.toString());
+            return "close";
+        }
+
     }
 
 }
