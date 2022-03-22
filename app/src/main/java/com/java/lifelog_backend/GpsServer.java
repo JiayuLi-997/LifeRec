@@ -24,6 +24,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.SystemClock;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -37,6 +38,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import static androidx.core.app.ActivityCompat.requestPermissions;
 
@@ -50,6 +53,7 @@ public class GpsServer extends Service {
     String gpsRecodePath;
     String weatherRecodePath;
     Calendar calendars;
+    String TAG = "GPSserver";
 
     public final int NOTICE_ID = 100;
     public final String CHANNEL_ID_STRING = "nyd001";
@@ -101,6 +105,23 @@ public class GpsServer extends Service {
         }
     };
 
+    private Location getLastKnownLocation() {
+        lm = (LocationManager)getApplicationContext().getSystemService(LOCATION_SERVICE);
+        List<String> providers = lm.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            Location l = lm.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                // Found best last known location: %s", l);
+                bestLocation = l;
+            }
+        }
+        return bestLocation;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -119,18 +140,23 @@ public class GpsServer extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         WakeLocker.acquire(this.getBaseContext());
         int interval = 0;
+        Log.e(TAG, "Start GPS command");
 
-        lc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
+        lc = getLastKnownLocation(); // lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if(lc != null)
         {
             String locationStr = lc.getLongitude() + "," + lc.getLatitude();
             System.out.println(lc.toString());
+            Log.e(TAG,"Save GPS");
             gpsUpdate(lc);
             weatherAPI.getWeather(mainContext, locationStr);
             //若成功则每15分钟请求一次
             interval = 15 * 60 * 1000;
         }
         else{
+            Log.e(TAG,"Fail GPS");
             interval = 3 * 60 * 1000;
         }
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
