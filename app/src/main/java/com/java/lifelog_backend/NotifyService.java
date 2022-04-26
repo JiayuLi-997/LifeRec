@@ -114,11 +114,35 @@ public class NotifyService extends Service {
 
         int[] hours = {7, 9, 11, 12, 13, 15, 16, 17, 18, 19, 21, 22, 23, 23};
         int[] minutes = {50, 40, 30, 20, 20, 10, 10, 0, 0, 10, 0, 0, 0, 50};
-
+        // TODO: 怎么确保用户按标准格式输入时间？
         for (String clockId : reminderClocks.split(",")) {
-            int i = Integer.parseInt(clockId);
-            setDailyTimer(hours[i], minutes[i], alarmId, notifyText);
-            alarmId++;
+            if (clockId.length() <= 2) {
+                int i;
+                try {
+                    i = Integer.parseInt(clockId);
+                }
+                catch(Exception e) {
+                    continue;
+                }
+                if (i < 0 || i > 13)
+                    continue;
+                setDailyTimer(hours[i], minutes[i], alarmId, notifyText);
+                alarmId++;
+            }
+            else {
+                if (clockId.length() != 5)
+                    continue;
+                if (clockId.charAt(0) > '9' || clockId.charAt(0) < '0')
+                    continue;
+                if (clockId.charAt(1) > '9' || clockId.charAt(1) < '0')
+                    continue;
+                if (clockId.charAt(3) > '9' || clockId.charAt(3) < '0')
+                    continue;
+                if (clockId.charAt(4) > '9' || clockId.charAt(4) < '0')
+                    continue;
+                setDailyTimer(Integer.parseInt(clockId.substring(0,2)), Integer.parseInt(clockId.substring(3,5)), alarmId, notifyText);
+                alarmId++;
+            }
         }
         maxAlarmId = alarmId;
     }

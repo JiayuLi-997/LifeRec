@@ -259,6 +259,21 @@
                     android:layout_marginLeft="10dp"
                     android:text="23:50"
                     android:textSize="16dp"></CheckBox>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/customize"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/customize_time"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="xx:xx"
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </LinearLayout>

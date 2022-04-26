@@ -90,4 +90,5 @@
     <string name="five">5 (strongly like)</string>
     <string name="song_rate_continous">Please show your preference with the seek bar.</string>
     <string name="confirm">OK</string>
+    <string name="customize">Input time</string>
 </resources>

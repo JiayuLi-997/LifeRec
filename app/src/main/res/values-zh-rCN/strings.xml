@@ -90,4 +90,5 @@
     <string name="five">5 (非常喜欢)</string>
     <string name="song_rate_continous">请在如下滑动条中标出你对这首歌的喜爱程度</string>
     <string name="confirm">确认</string>
+    <string name="customize">自定义</string>
 </resources>

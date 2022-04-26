@@ -31,7 +31,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
-    private EditText user_editText, bluetooth_editText, interval_editText;
+    private EditText user_editText, bluetooth_editText, interval_editText, customize_time;
     private int[] tagging_time, breakfast_time, lunch_time, dinner_time;
     private TextView start_Textview, end_Textview, tagging_Textview, breakfast_Textview, lunch_Textview, dinner_Textview, interval_Textview;
     String TAG="SettingActivity";
@@ -56,6 +56,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void init() {
         user_editText = findViewById(R.id.user_id);
         bluetooth_editText = findViewById(R.id.bluetooth_id);
+        customize_time = findViewById(R.id.customize_time);
         // interval_editText = findViewById(R.id.interval_time);
 
         // start_Textview = findViewById(R.id.TV_start_time);
@@ -68,6 +69,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
         user_editText.setHint("Please set user index");
         bluetooth_editText.setHint("Please set bracelet index");
+        customize_time.setHint("xx:xx");
         interval_Textview.setHint("10");
 
         String Setting_Path = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend/setting/";
@@ -87,6 +89,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             JsonObject object = (JsonObject) parser.parse(new FileReader(fileName));
             user_editText.setText(object.get("user_id").getAsString());
             bluetooth_editText.setText(object.get("bluetooth_id").getAsString());
+            customize_time.setText(object.get("customize_time").getAsString());
             // start_Textview.setText(object.get("start_time_setting").getAsString());
             // end_Textview.setText(object.get("end_time_setting").getAsString());
             tagging_Textview.setText(object.get("tagging_time_setting").getAsString());
@@ -204,12 +207,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         String user_id = user_editText.getText().toString();
         Log.i("user_id", user_id);
         String bluetooth_id = bluetooth_editText.getText().toString();
-
+        String customize_time = this.customize_time.getText().toString();
         String tagging_time_setting = tagging_Textview.getText().toString();
         String breakfast_time_setting = breakfast_Textview.getText().toString();
         String lunch_time_setting = lunch_Textview.getText().toString();
         String dinner_time_setting = dinner_Textview.getText().toString();
-
+        Log.v("a", customize_time+"time");
         String reminderClocks = "";
         for (int i = 0; i < 14; i++) {
             int resID = getResources().getIdentifier("moment_" + Integer.toString(i), "id", getPackageName());
@@ -218,7 +221,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 reminderClocks += "," + Integer.toString(i);
             }
         }
-        if (reminderClocks.length() > 0) {
+        if (customize_time.length() > 0) {
+            reminderClocks += "," + customize_time;
+        }
+        if (reminderClocks.length() > 0) { //去除掉最开始的逗号
             reminderClocks = reminderClocks.substring(1);
         }
 
