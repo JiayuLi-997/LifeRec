@@ -31,9 +31,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
-    private EditText user_editText, bluetooth_editText, interval_editText, customize_time;
+    private EditText user_editText, bluetooth_editText, interval_editText;
     private int[] tagging_time, breakfast_time, lunch_time, dinner_time;
+    private int[] time_1, time_2, time_3;
     private TextView start_Textview, end_Textview, tagging_Textview, breakfast_Textview, lunch_Textview, dinner_Textview, interval_Textview;
+    private TextView time_1_Textview, time_2_Textview, time_3_Textview;
     String TAG="SettingActivity";
 
     @Override
@@ -45,6 +47,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         // findViewById(R.id.set_end_time).setOnClickListener(this);
         findViewById(R.id.set_tagging_time).setOnClickListener(this);
         findViewById(R.id.set_breakfast_time).setOnClickListener(this);
+        findViewById(R.id.set_time1).setOnClickListener(this);
+        findViewById(R.id.set_time2).setOnClickListener(this);
+        findViewById(R.id.set_time3).setOnClickListener(this);
         findViewById(R.id.set_lunch_time).setOnClickListener(this);
         findViewById(R.id.set_dinner_time).setOnClickListener(this);
         findViewById(R.id.upload_interval).setOnClickListener(this);
@@ -56,20 +61,21 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void init() {
         user_editText = findViewById(R.id.user_id);
         bluetooth_editText = findViewById(R.id.bluetooth_id);
-        customize_time = findViewById(R.id.customize_time);
         // interval_editText = findViewById(R.id.interval_time);
 
         // start_Textview = findViewById(R.id.TV_start_time);
         // end_Textview = findViewById(R.id.TV_end_time);
         tagging_Textview = findViewById(R.id.TV_tagging_time);
         breakfast_Textview = findViewById(R.id.TV_breakfast_time);
+        time_1_Textview = findViewById(R.id.TV_time1);
+        time_2_Textview = findViewById(R.id.TV_time2);
+        time_3_Textview = findViewById(R.id.TV_time3);
         lunch_Textview = findViewById(R.id.TV_lunch_time);
         dinner_Textview = findViewById(R.id.TV_dinner_time);
         interval_Textview = findViewById(R.id.upload_interval);
 
         user_editText.setHint("Please set user index");
         bluetooth_editText.setHint("Please set bracelet index");
-        customize_time.setHint("xx:xx");
         interval_Textview.setHint("10");
 
         String Setting_Path = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend/setting/";
@@ -89,7 +95,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             JsonObject object = (JsonObject) parser.parse(new FileReader(fileName));
             user_editText.setText(object.get("user_id").getAsString());
             bluetooth_editText.setText(object.get("bluetooth_id").getAsString());
-            customize_time.setText(object.get("customize_time").getAsString());
             // start_Textview.setText(object.get("start_time_setting").getAsString());
             // end_Textview.setText(object.get("end_time_setting").getAsString());
             tagging_Textview.setText(object.get("tagging_time_setting").getAsString());
@@ -100,12 +105,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             String reminderClocks = object.get("reminder_clocks").getAsString();
             interval_Textview.setText(getAutoInterval());
-
+            /*
             for (String clockId : reminderClocks.split(",")) {
                 int resID = getResources().getIdentifier("moment_" + clockId, "id", getPackageName());
                 CheckBox cb = (CheckBox) findViewById(resID);
                 cb.setChecked(true);
-            }
+            }*/
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -150,6 +155,21 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 Intent intent6 = new Intent();
                 intent6.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
                 startActivityForResult(intent6, 106);
+                break;
+            case R.id.set_time1:
+                Intent intent11 = new Intent();
+                intent11.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
+                startActivityForResult(intent11, 111);
+                break;
+            case R.id.set_time2:
+                Intent intent12 = new Intent();
+                intent12.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
+                startActivityForResult(intent12, 112);
+                break;
+            case R.id.set_time3:
+                Intent intent13 = new Intent();
+                intent13.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
+                startActivityForResult(intent13, 113);
                 break;
         }
     }
@@ -200,6 +220,36 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                     dinner_Textview.setText(sb.toString());
                 }
                 break;
+            case 111:
+                if (resultCode == RESULT_OK) {
+                    time_1 = data.getExtras().getIntArray("time");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("%02d", time_1[0]));
+                    sb.append(":");
+                    sb.append(String.format("%02d", time_1[1]));
+                    time_1_Textview.setText(sb.toString());
+                }
+                break;
+            case 112:
+                if (resultCode == RESULT_OK) {
+                    time_2 = data.getExtras().getIntArray("time");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("%02d", time_2[0]));
+                    sb.append(":");
+                    sb.append(String.format("%02d", time_2[1]));
+                    time_2_Textview.setText(sb.toString());
+                }
+                break;
+            case 113:
+                if (resultCode == RESULT_OK) {
+                    time_3 = data.getExtras().getIntArray("time");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("%02d", time_3[0]));
+                    sb.append(":");
+                    sb.append(String.format("%02d", time_3[1]));
+                    time_3_Textview.setText(sb.toString());
+                }
+                break;
         }
     }
 
@@ -207,22 +257,39 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         String user_id = user_editText.getText().toString();
         Log.i("user_id", user_id);
         String bluetooth_id = bluetooth_editText.getText().toString();
-        String customize_time = this.customize_time.getText().toString();
         String tagging_time_setting = tagging_Textview.getText().toString();
         String breakfast_time_setting = breakfast_Textview.getText().toString();
         String lunch_time_setting = lunch_Textview.getText().toString();
         String dinner_time_setting = dinner_Textview.getText().toString();
-        Log.v("a", customize_time+"time");
         String reminderClocks = "";
+        /*
         for (int i = 0; i < 14; i++) {
             int resID = getResources().getIdentifier("moment_" + Integer.toString(i), "id", getPackageName());
             CheckBox cb = (CheckBox) findViewById(resID);
             if (cb.isChecked()) {
                 reminderClocks += "," + Integer.toString(i);
             }
+        }*/
+        if (time_1.length > 0) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(String.format("%02d", time_1[0]));
+            sb.append(":");
+            sb.append(String.format("%02d", time_1[1]));
+            reminderClocks += "," + sb;
         }
-        if (customize_time.length() > 0) {
-            reminderClocks += "," + customize_time;
+        if (time_2.length > 0) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(String.format("%02d", time_2[0]));
+            sb.append(":");
+            sb.append(String.format("%02d", time_2[1]));
+            reminderClocks += "," + sb;
+        }
+        if (time_3.length > 0) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(String.format("%02d", time_3[0]));
+            sb.append(":");
+            sb.append(String.format("%02d", time_3[1]));
+            reminderClocks += "," + sb;
         }
         if (reminderClocks.length() > 0) { //去除掉最开始的逗号
             reminderClocks = reminderClocks.substring(1);

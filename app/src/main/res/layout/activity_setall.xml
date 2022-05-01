@@ -114,7 +114,7 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
-
+            <!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -275,8 +275,9 @@
                     android:hint="xx:xx"
                     android:textSize="18sp" />
             </LinearLayout>
-
+-->
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -299,6 +300,94 @@
                     android:text="@string/reminder_time"
                     android:textSize="18sp" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Alarming time 1"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TV_time1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="00:00"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/set_time1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/modify"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Alarming time 2"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TV_time2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="00:00"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/set_time2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/modify"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Alarming time 3"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TV_time3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="00:00"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/set_time3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/modify"
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <LinearLayout
