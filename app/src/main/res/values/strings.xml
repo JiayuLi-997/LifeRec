@@ -91,4 +91,6 @@
     <string name="song_rate_continous">Please show your preference with the seek bar.</string>
     <string name="confirm">OK</string>
     <string name="customize">Input time</string>
+    <string name="addtime">Add Alarming Time</string>
+    <string name="removetime">Remove Alarming Time</string>
 </resources>

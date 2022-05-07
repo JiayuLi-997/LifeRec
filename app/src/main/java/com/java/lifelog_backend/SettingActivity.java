@@ -33,29 +33,41 @@ import com.google.gson.JsonParser;
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText user_editText, bluetooth_editText, interval_editText;
     private int[] tagging_time, breakfast_time, lunch_time, dinner_time;
-    private int[] time_1, time_2, time_3;
+    private int[][] time = new int[10][2];
+    private int alarm_cnt = 0;
     private TextView start_Textview, end_Textview, tagging_Textview, breakfast_Textview, lunch_Textview, dinner_Textview, interval_Textview;
-    private TextView time_1_Textview, time_2_Textview, time_3_Textview;
+    private TextView[] time_Textview = new TextView[10];
     String TAG="SettingActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setall);
-
         // findViewById(R.id.set_start_time).setOnClickListener(this);
         // findViewById(R.id.set_end_time).setOnClickListener(this);
         findViewById(R.id.set_tagging_time).setOnClickListener(this);
         findViewById(R.id.set_breakfast_time).setOnClickListener(this);
+        findViewById(R.id.add_time).setOnClickListener(this);
+        findViewById(R.id.remove_time).setOnClickListener(this);
         findViewById(R.id.set_time1).setOnClickListener(this);
         findViewById(R.id.set_time2).setOnClickListener(this);
         findViewById(R.id.set_time3).setOnClickListener(this);
+        findViewById(R.id.set_time4).setOnClickListener(this);
+        findViewById(R.id.set_time5).setOnClickListener(this);
+        findViewById(R.id.set_time6).setOnClickListener(this);
+        findViewById(R.id.set_time7).setOnClickListener(this);
+        findViewById(R.id.set_time8).setOnClickListener(this);
+        findViewById(R.id.set_time9).setOnClickListener(this);
+        findViewById(R.id.set_time10).setOnClickListener(this);
         findViewById(R.id.set_lunch_time).setOnClickListener(this);
         findViewById(R.id.set_dinner_time).setOnClickListener(this);
         findViewById(R.id.upload_interval).setOnClickListener(this);
         findViewById(R.id.save_setting).setOnClickListener(this);
-
         init();
+        for(int i = alarm_cnt; i < 10; i++){
+            int id = getResources().getIdentifier("TIME"+(i+1),"id",getPackageName());
+            findViewById(id).setVisibility(View.GONE);
+        }
     }
 
     private void init() {
@@ -67,9 +79,16 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         // end_Textview = findViewById(R.id.TV_end_time);
         tagging_Textview = findViewById(R.id.TV_tagging_time);
         breakfast_Textview = findViewById(R.id.TV_breakfast_time);
-        time_1_Textview = findViewById(R.id.TV_time1);
-        time_2_Textview = findViewById(R.id.TV_time2);
-        time_3_Textview = findViewById(R.id.TV_time3);
+        time_Textview[0] = findViewById(R.id.TV_time1);
+        time_Textview[1] = findViewById(R.id.TV_time2);
+        time_Textview[2] = findViewById(R.id.TV_time3);
+        time_Textview[3] = findViewById(R.id.TV_time4);
+        time_Textview[4] = findViewById(R.id.TV_time5);
+        time_Textview[5] = findViewById(R.id.TV_time6);
+        time_Textview[6] = findViewById(R.id.TV_time7);
+        time_Textview[7] = findViewById(R.id.TV_time8);
+        time_Textview[8] = findViewById(R.id.TV_time9);
+        time_Textview[9] = findViewById(R.id.TV_time10);
         lunch_Textview = findViewById(R.id.TV_lunch_time);
         dinner_Textview = findViewById(R.id.TV_dinner_time);
         interval_Textview = findViewById(R.id.upload_interval);
@@ -102,7 +121,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             breakfast_Textview.setText(object.get("breakfast_time_setting").getAsString());
             lunch_Textview.setText(object.get("lunch_time_setting").getAsString());
             dinner_Textview.setText(object.get("dinner_time_setting").getAsString());
-
+            for(int i = 0; i < 10; i++)
+            {
+                String s = "alarm_time"+(i);
+                time_Textview[i].setText(object.get(s).getAsString());
+            }
+            alarm_cnt = object.get("alarm_cnt").getAsInt();
             String reminderClocks = object.get("reminder_clocks").getAsString();
             interval_Textview.setText(getAutoInterval());
             /*
@@ -125,7 +149,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.save_setting:
                 String clocks = write();
                 //启动notification的service
-                startNotification(clocks);
+                //startNotification(clocks);
                 //返回Main界面
                 Intent intent = new Intent();
                 intent.setClass(SettingActivity.this, MainActivity.class);
@@ -135,6 +159,22 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 //                intent.putExtra("interval", interval_editText.getText().toString());
 //                setResult(RESULT_OK, intent);
 //                finish();
+                break;
+            case R.id.add_time:
+                if(alarm_cnt <= 9)
+                {
+                    alarm_cnt++;
+                    int id = getResources().getIdentifier("TIME"+(alarm_cnt),"id",getPackageName());
+                    findViewById(id).setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.remove_time:
+                if(alarm_cnt > 0)
+                {
+                    int id = getResources().getIdentifier("TIME"+(alarm_cnt),"id",getPackageName());
+                    findViewById(id).setVisibility(View.GONE);
+                    alarm_cnt--;
+                }
                 break;
             case R.id.set_tagging_time:
                 Intent intent3 = new Intent();
@@ -170,6 +210,41 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 Intent intent13 = new Intent();
                 intent13.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
                 startActivityForResult(intent13, 113);
+                break;
+            case R.id.set_time4:
+                Intent intent14 = new Intent();
+                intent14.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
+                startActivityForResult(intent14, 114);
+                break;
+            case R.id.set_time5:
+                Intent intent15 = new Intent();
+                intent15.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
+                startActivityForResult(intent15, 115);
+                break;
+            case R.id.set_time6:
+                Intent intent16 = new Intent();
+                intent16.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
+                startActivityForResult(intent16, 116);
+                break;
+            case R.id.set_time7:
+                Intent intent17 = new Intent();
+                intent17.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
+                startActivityForResult(intent17, 117);
+                break;
+            case R.id.set_time8:
+                Intent intent18 = new Intent();
+                intent18.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
+                startActivityForResult(intent18, 118);
+                break;
+            case R.id.set_time9:
+                Intent intent19 = new Intent();
+                intent19.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
+                startActivityForResult(intent19, 119);
+                break;
+            case R.id.set_time10:
+                Intent intent110 = new Intent();
+                intent110.setClass(SettingActivity.this, RecordSettingTimeActivity.class);
+                startActivityForResult(intent110, 120);
                 break;
         }
     }
@@ -222,32 +297,102 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case 111:
                 if (resultCode == RESULT_OK) {
-                    time_1 = data.getExtras().getIntArray("time");
+                    time[0] = data.getExtras().getIntArray("time");
                     StringBuilder sb = new StringBuilder();
-                    sb.append(String.format("%02d", time_1[0]));
+                    sb.append(String.format("%02d", time[0][0]));
                     sb.append(":");
-                    sb.append(String.format("%02d", time_1[1]));
-                    time_1_Textview.setText(sb.toString());
+                    sb.append(String.format("%02d", time[0][1]));
+                    time_Textview[0].setText(sb.toString());
                 }
                 break;
             case 112:
                 if (resultCode == RESULT_OK) {
-                    time_2 = data.getExtras().getIntArray("time");
+                    time[1] = data.getExtras().getIntArray("time");
                     StringBuilder sb = new StringBuilder();
-                    sb.append(String.format("%02d", time_2[0]));
+                    sb.append(String.format("%02d", time[1][0]));
                     sb.append(":");
-                    sb.append(String.format("%02d", time_2[1]));
-                    time_2_Textview.setText(sb.toString());
+                    sb.append(String.format("%02d", time[1][1]));
+                    time_Textview[1].setText(sb.toString());
                 }
                 break;
             case 113:
                 if (resultCode == RESULT_OK) {
-                    time_3 = data.getExtras().getIntArray("time");
+                    time[2] = data.getExtras().getIntArray("time");
                     StringBuilder sb = new StringBuilder();
-                    sb.append(String.format("%02d", time_3[0]));
+                    sb.append(String.format("%02d", time[2][0]));
                     sb.append(":");
-                    sb.append(String.format("%02d", time_3[1]));
-                    time_3_Textview.setText(sb.toString());
+                    sb.append(String.format("%02d", time[2][1]));
+                    time_Textview[2].setText(sb.toString());
+                }
+                break;
+            case 114:
+                if (resultCode == RESULT_OK) {
+                    time[3] = data.getExtras().getIntArray("time");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("%02d", time[3][0]));
+                    sb.append(":");
+                    sb.append(String.format("%02d", time[3][1]));
+                    time_Textview[3].setText(sb.toString());
+                }
+                break;
+            case 115:
+                if (resultCode == RESULT_OK) {
+                    time[4] = data.getExtras().getIntArray("time");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("%02d", time[4][0]));
+                    sb.append(":");
+                    sb.append(String.format("%02d", time[4][1]));
+                    time_Textview[4].setText(sb.toString());
+                }
+                break;
+            case 116:
+                if (resultCode == RESULT_OK) {
+                    time[5] = data.getExtras().getIntArray("time");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("%02d", time[5][0]));
+                    sb.append(":");
+                    sb.append(String.format("%02d", time[5][1]));
+                    time_Textview[5].setText(sb.toString());
+                }
+                break;
+            case 117:
+                if (resultCode == RESULT_OK) {
+                    time[6] = data.getExtras().getIntArray("time");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("%02d", time[6][0]));
+                    sb.append(":");
+                    sb.append(String.format("%02d", time[6][1]));
+                    time_Textview[6].setText(sb.toString());
+                }
+                break;
+            case 118:
+                if (resultCode == RESULT_OK) {
+                    time[7] = data.getExtras().getIntArray("time");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("%02d", time[7][0]));
+                    sb.append(":");
+                    sb.append(String.format("%02d", time[7][1]));
+                    time_Textview[7].setText(sb.toString());
+                }
+                break;
+            case 119:
+                if (resultCode == RESULT_OK) {
+                    time[8] = data.getExtras().getIntArray("time");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("%02d", time[8][0]));
+                    sb.append(":");
+                    sb.append(String.format("%02d", time[8][1]));
+                    time_Textview[8].setText(sb.toString());
+                }
+                break;
+            case 120:
+                if (resultCode == RESULT_OK) {
+                    time[9] = data.getExtras().getIntArray("time");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("%02d", time[9][0]));
+                    sb.append(":");
+                    sb.append(String.format("%02d", time[9][1]));
+                    time_Textview[9].setText(sb.toString());
                 }
                 break;
         }
@@ -255,7 +400,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     private String write() {
         String user_id = user_editText.getText().toString();
-        Log.i("user_id", user_id);
         String bluetooth_id = bluetooth_editText.getText().toString();
         String tagging_time_setting = tagging_Textview.getText().toString();
         String breakfast_time_setting = breakfast_Textview.getText().toString();
@@ -270,31 +414,21 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 reminderClocks += "," + Integer.toString(i);
             }
         }*/
-        if (time_1.length > 0) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(String.format("%02d", time_1[0]));
-            sb.append(":");
-            sb.append(String.format("%02d", time_1[1]));
-            reminderClocks += "," + sb;
-        }
-        if (time_2.length > 0) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(String.format("%02d", time_2[0]));
-            sb.append(":");
-            sb.append(String.format("%02d", time_2[1]));
-            reminderClocks += "," + sb;
-        }
-        if (time_3.length > 0) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(String.format("%02d", time_3[0]));
-            sb.append(":");
-            sb.append(String.format("%02d", time_3[1]));
-            reminderClocks += "," + sb;
+        //System.out.println("time[0]_1:"+time[0].length);
+        for(int i = 0; i < 10; i++)
+        {
+            if (time[i].length > 1) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(String.format("%02d", time[i][0]));
+                sb.append(":");
+                sb.append(String.format("%02d", time[i][1]));
+                reminderClocks += "," + sb;
+            }
         }
         if (reminderClocks.length() > 0) { //去除掉最开始的逗号
             reminderClocks = reminderClocks.substring(1);
         }
-
+        System.out.println("clock:"+reminderClocks);
         //save
         String Setting_Path = Environment.getExternalStorageDirectory() + "/com.java.lifelog_backend/setting/";
         //File setting_file = new File(Setting_Path + "setting.txt");
@@ -353,7 +487,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         object.addProperty("lunch_time_setting", lunch_time_setting);
         object.addProperty("dinner_time_setting", dinner_time_setting);
         object.addProperty("reminder_clocks", reminderClocks);
-
+        for(int i = 0; i < 10; i++)
+        {
+            String s = Integer.toString(i);
+            object.addProperty("reminder_clocks"+s,
+                    time_Textview[i].getText().toString());
+        }
+        object.addProperty("alarm_cnt", alarm_cnt);
         File setting_file2 = new File(Setting_Path + "setting.json");
 
         BufferedWriter out2 = null;
@@ -423,7 +563,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
         Intent i = new Intent(this, NotifyService.class);
         i.putExtra("trace_time", tagging_time_setting);
-        i.putExtra("breakfast", breakfast_time_setting);
+        i.putExtra("breakfa" +
+                "st", breakfast_time_setting);
         i.putExtra("lunch", lunch_time_setting);
         i.putExtra("dinner", dinner_time_setting);
         i.putExtra("clocks", clocks);

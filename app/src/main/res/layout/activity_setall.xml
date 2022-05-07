@@ -301,12 +301,34 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
+                <Button
+                    android:id="@+id/add_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/addtime"
+                    android:textSize="12dp" />
+
+                <Button
+                    android:id="@+id/remove_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/removetime"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:id="@+id/TIME1">
+                
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -335,7 +357,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/TIME2">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -364,7 +387,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/TIME3">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -389,7 +413,223 @@
                     android:text="@string/modify"
                     android:textSize="12dp" />
             </LinearLayout>
+            <!--4-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:id="@+id/TIME4">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Alarming time 4"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TV_time4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="00:00"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/set_time4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/modify"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <!--5-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:id="@+id/TIME5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Alarming time 5"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TV_time5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="00:00"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/set_time5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/modify"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <!--6-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:id="@+id/TIME6">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Alarming time 6"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TV_time6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="00:00"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/set_time6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/modify"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <!--7-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:id="@+id/TIME7">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Alarming time 7"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TV_time7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="00:00"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/set_time7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/modify"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <!--8-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:id="@+id/TIME8">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Alarming time 8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TV_time8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="00:00"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/set_time8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/modify"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <!--9-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:id="@+id/TIME9">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Alarming time 9"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TV_time9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="00:00"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/set_time9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/modify"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <!--10-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:id="@+id/TIME10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Alarming time 10"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TV_time10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="00:00"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/set_time10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/modify"
+                    android:textSize="12dp" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
