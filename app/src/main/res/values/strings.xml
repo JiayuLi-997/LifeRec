@@ -45,7 +45,7 @@
     <string name="index">User ID:</string>
     <string name="index_bracelet">Bracelet ID:</string>
     <string name="receive_reminder">Please select time to receive reminders of daily mood recording:</string>
-    <string name="reminder_time">Please set reminder time:</string>
+    <string name="reminder_time">Please set reminder time: (At most 10)</string>
     <string name="mark_reminder">Activity recording:</string>
     <string name="modify">Modify</string>
     <string name="supper_reminder">Supper recording:</string>
@@ -92,5 +92,5 @@
     <string name="confirm">OK</string>
     <string name="customize">Input time</string>
     <string name="addtime">Add Alarming Time</string>
-    <string name="removetime">Remove Alarming Time</string>
+    <string name="removetime">Remove Last Alarming Time</string>
 </resources>

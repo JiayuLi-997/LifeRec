@@ -45,7 +45,7 @@
     <string name="index">用户ID：</string>
     <string name="index_bracelet">手环ID：</string>
     <string name="receive_reminder">请选择接收日常心情记录的提醒时间：</string>
-    <string name="reminder_time">请设置提醒时间：</string>
+    <string name="reminder_time">请设置提醒时间：(至多10个)</string>
     <string name="mark_reminder">活动记录：</string>
     <string name="modify">修改</string>
     <string name="supper_reminder">晚餐记录：</string>
@@ -92,5 +92,5 @@
     <string name="confirm">确认</string>
     <string name="customize">自定义</string>
     <string name="addtime">添加提醒时间</string>
-    <string name="removetime">删除提醒时间</string>
+    <string name="removetime">删除提醒时间(最后一个)</string>
 </resources>
