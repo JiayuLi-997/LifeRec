@@ -93,4 +93,14 @@
     <string name="customize">Input time</string>
     <string name="addtime">Add Alarming Time</string>
     <string name="removetime">Remove Last Alarming Time</string>
+    <string name="a1">"Alarming time 1  "</string>
+    <string name="a2">"Alarming time 2  "</string>
+    <string name="a3">"Alarming time 3  "</string>
+    <string name="a4">"Alarming time 4  "</string>
+    <string name="a5">"Alarming time 5  "</string>
+    <string name="a6">"Alarming time 6  "</string>
+    <string name="a7">"Alarming time 7  "</string>
+    <string name="a8">"Alarming time 8  "</string>
+    <string name="a9">"Alarming time 9  "</string>
+    <string name="a10">"Alarming time 10  "</string>
 </resources>

@@ -93,4 +93,14 @@
     <string name="customize">自定义</string>
     <string name="addtime">添加提醒时间</string>
     <string name="removetime">删除提醒时间(最后一个)</string>
+    <string name="a1">"提醒时间1  "</string>
+    <string name="a2">"提醒时间2  "</string>
+    <string name="a3">"提醒时间3  "</string>
+    <string name="a4">"提醒时间4  "</string>
+    <string name="a5">"提醒时间5  "</string>
+    <string name="a6">"提醒时间6  "</string>
+    <string name="a7">"提醒时间7  "</string>
+    <string name="a8">"提醒时间8  "</string>
+    <string name="a9">"提醒时间9  "</string>
+    <string name="a10">"提醒时间10  "</string>
 </resources>

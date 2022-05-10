@@ -334,7 +334,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Alarming time 1"
+                    android:text="@string/a1"
                     android:textSize="16dp" />
 
                 <TextView
@@ -364,7 +364,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Alarming time 2"
+                    android:text="@string/a2"
                     android:textSize="16dp" />
 
                 <TextView
@@ -394,7 +394,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Alarming time 3"
+                    android:text="@string/a3"
                     android:textSize="16dp" />
 
                 <TextView
@@ -425,7 +425,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Alarming time 4"
+                    android:text="@string/a4"
                     android:textSize="16dp" />
 
                 <TextView
@@ -456,7 +456,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Alarming time 5"
+                    android:text="@string/a5"
                     android:textSize="16dp" />
 
                 <TextView
@@ -487,7 +487,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Alarming time 6"
+                    android:text="@string/a6"
                     android:textSize="16dp" />
 
                 <TextView
@@ -518,7 +518,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Alarming time 7"
+                    android:text="@string/a7"
                     android:textSize="16dp" />
 
                 <TextView
@@ -549,7 +549,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Alarming time 8"
+                    android:text="@string/a8"
                     android:textSize="16dp" />
 
                 <TextView
@@ -580,7 +580,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Alarming time 9"
+                    android:text="@string/a9"
                     android:textSize="16dp" />
 
                 <TextView
@@ -611,7 +611,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Alarming time 10"
+                    android:text="@string/a10"
                     android:textSize="16dp" />
 
                 <TextView
